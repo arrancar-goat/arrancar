@@ -2,63 +2,98 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta 
+        name="viewport" 
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#020202">
-    <title>ARRANCAR | OFFICIAL PORTAL</title>
+    
+    <title>ARRANCAR | THE SYNDICATE HUB</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&display=swap" 
+        rel="stylesheet"
+    >
 
     <style>
-        /* GLOBAL VARIABLES (CSS VARIABLES)
-        */
+        /* [1. SYSTEM_ROOT_VARIABLES]
+        ------------------------------------------------------------ */
         :root {
-            --background-base: #020202;
-            --background-card: #080808;
-            --background-overlay: rgba(0, 0, 0, 0.95);
+            --bg-black: #020202;
+            --bg-card: #080808;
+            --bg-modal: rgba(2, 2, 2, 0.98);
             
-            --color-mewasted: #00ffcc; /* NEON MINT */
-            --color-murdered: #b026ff; /* PSYCHO PURPLE */
-            --color-danger: #ff3333;   /* SYSTEM RED */
+            --mewasted-accent: #00ffcc; 
+            --murdered-accent: #b026ff;
+            --danger-accent: #ff3333;
             
-            --text-main: #ffffff;
-            --text-muted: #666666;
-            --text-dim: #999999;
+            --white-pure: #ffffff;
+            --white-dim: #cccccc;
+            --grey-muted: #666666;
+            --grey-dark: #1a1a1a;
             
-            --border-primary: rgba(255, 255, 255, 0.05);
-            --border-active: rgba(255, 255, 255, 0.15);
+            --border-low: rgba(255, 255, 255, 0.05);
+            --border-high: rgba(255, 255, 255, 0.15);
             
-            --glow-mewasted: rgba(0, 255, 204, 0.15);
-            --glow-murdered: rgba(176, 38, 255, 0.15);
-            
-            --transition-speed: 0.5s;
-            --easing: cubic-bezier(0.25, 1, 0.5, 1);
+            --glow-mewasted: rgba(0, 255, 204, 0.2);
+            --glow-murdered: rgba(176, 38, 255, 0.2);
+            --glow-danger: rgba(255, 51, 51, 0.3);
+
+            --font-main: 'Inter', sans-serif;
+            --font-tech: 'Syncopate', sans-serif;
+            --font-code: 'Space Mono', monospace;
+
+            --transition-main: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* BASE RESET 
-        */
+        /* [2. GLOBAL_STABILIZATION]
+        ------------------------------------------------------------ */
+        * {
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            
+            padding-top: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+            
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         html, body {
             width: 100%;
             height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-base);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--white-pure);
+            font-family: var(--font-main);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        * {
-            box-sizing: border-box;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
+        /* [3. DECORATIVE_LAYERS]
+        ------------------------------------------------------------ */
+        .overlay-fx {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.03;
         }
 
-        /* DECORATIVE BACKGROUND ELEMENTS
-        */
-        .bg-layer {
+        .bg-blobs {
             position: fixed;
             top: 0;
             left: 0;
@@ -66,646 +101,767 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            pointer-events: none;
         }
 
-        .bg-glow-1 {
+        .blob-1 {
             position: absolute;
             top: -10%;
             left: -10%;
-            width: 50%;
-            height: 50%;
+            width: 60%;
+            height: 60%;
             background: radial-gradient(circle, var(--glow-mewasted) 0%, transparent 70%);
-            filter: blur(80px);
+            filter: blur(100px);
         }
 
-        .bg-glow-2 {
+        .blob-2 {
             position: absolute;
             bottom: -10%;
             right: -10%;
-            width: 50%;
-            height: 50%;
+            width: 60%;
+            height: 60%;
             background: radial-gradient(circle, var(--glow-murdered) 0%, transparent 70%);
-            filter: blur(80px);
+            filter: blur(100px);
         }
 
-        /* HEADER SECTION
-        */
-        .site-header {
+        /* [4. HEADER_CONSTRUCTION]
+        ------------------------------------------------------------ */
+        .master-header {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding-top: 120px;
+            padding-top: 130px;
             padding-bottom: 80px;
             text-align: center;
         }
 
-        .main-logo {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(3rem, 15vw, 7rem);
+        .brand-logo {
+            font-family: var(--font-tech);
             font-weight: 900;
-            letter-spacing: 25px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            background: linear-gradient(180deg, #ffffff 30%, #444444 100%);
+            letter-spacing: 25px;
+            font-size: 6rem;
+            margin-bottom: 40px;
+            background: linear-gradient(180deg, #fff 0%, #333 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            user-select: none;
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
         }
 
         .syndicate-motto {
-            color: var(--color-danger);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
+            color: var(--danger-accent);
+            font-family: var(--font-code);
             font-weight: 700;
-            letter-spacing: 4px;
             text-transform: uppercase;
-            border: 1px solid rgba(255, 51, 51, 0.2);
-            padding-top: 12px;
-            padding-bottom: 12px;
-            padding-left: 30px;
-            padding-right: 30px;
-            background-color: rgba(255, 51, 51, 0.03);
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255, 51, 51, 0.1);
-            animation: pulse-red 2s infinite ease-in-out;
+            letter-spacing: 5px;
+            font-size: 0.85rem;
+            
+            padding-top: 15px;
+            padding-right: 35px;
+            padding-bottom: 15px;
+            padding-left: 35px;
+            
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(255, 51, 51, 0.2);
+            
+            background-color: rgba(255, 51, 51, 0.05);
+            border-radius: 2px;
+            box-shadow: 0px 0px 25px var(--glow-danger);
+            
+            animation: pulse-danger 2.5s infinite ease-in-out;
         }
 
-        @keyframes pulse-red {
+        @keyframes pulse-danger {
             0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(0.98); }
+            50% { opacity: 0.7; transform: scale(0.98); }
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* MAIN CONTAINER
-        */
-        .content-wrapper {
+        /* [5. CONTENT_GEOMETRY]
+        ------------------------------------------------------------ */
+        .root-container {
             max-width: 1200px;
             width: 100%;
-            margin-left: auto;
+            margin-top: 0;
             margin-right: auto;
-            padding-left: 20px;
-            padding-right: 20px;
-            padding-bottom: 100px;
+            margin-bottom: 0;
+            margin-left: auto;
+            padding-top: 0;
+            padding-right: 25px;
+            padding-bottom: 120px;
+            padding-left: 25px;
         }
 
-        /* CARDS GRID 
-        */
-        .grid-system {
+        /* [6. CARDS_ENGINE]
+        ------------------------------------------------------------ */
+        .cards-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 40px;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
 
-        .member-card {
-            background-color: var(--background-card);
-            border-width: 1px;
+        .syndicate-card {
+            background-color: var(--bg-card);
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
             border-style: solid;
-            border-color: var(--border-primary);
-            border-radius: 40px;
-            padding: 50px;
+            border-color: var(--border-low);
+            
+            border-radius: 45px;
+            padding-top: 60px;
+            padding-right: 50px;
+            padding-bottom: 60px;
+            padding-left: 50px;
+            
             position: relative;
-            transition: var(--transition-speed) var(--easing);
+            transition: var(--transition-main);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
-        .member-card:hover {
-            border-color: var(--border-active);
+        .syndicate-card:hover {
+            border-color: var(--border-high);
             transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            box-shadow: 0px 40px 80px rgba(0,0,0,0.7);
         }
 
-        .member-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.02), transparent);
-            pointer-events: none;
-        }
-
-        .card-identity {
+        .card-header-unit {
             display: flex;
             align-items: center;
-            gap: 25px;
-            margin-bottom: 40px;
+            gap: 30px;
+            margin-bottom: 45px;
         }
 
-        .avatar-frame {
-            width: 80px;
-            height: 80px;
+        .unit-avatar {
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
+            background-color: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.5rem;
+            font-family: var(--font-tech);
             font-weight: 700;
-            background-color: #000;
-            border: 1px solid var(--border-primary);
+            font-size: 1.6rem;
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--border-low);
         }
 
-        .frame-mw { color: var(--color-mewasted); box-shadow: 0 0 25px var(--glow-mewasted); }
-        .frame-mr { color: var(--color-murdered); box-shadow: 0 0 25px var(--glow-murdered); }
+        .av-mewasted { color: var(--mewasted-accent); box-shadow: 0 0 30px var(--glow-mewasted); }
+        .av-murdered { color: var(--murdered-accent); box-shadow: 0 0 30px var(--glow-murdered); }
 
-        .id-details h2 {
-            font-size: 1.8rem;
+        .unit-title h2 {
+            font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 5px;
             letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
-        .id-details span {
-            font-family: 'Space Mono', monospace;
-            color: var(--text-muted);
+        .unit-title span {
+            font-family: var(--font-code);
+            color: var(--grey-muted);
             font-size: 0.9rem;
         }
 
-        .service-description {
-            font-size: 1rem;
-            color: var(--text-dim);
-            line-height: 1.7;
-            margin-bottom: 40px;
-            min-height: 80px;
-        }
-
-        /* DOSSBIER BLOCKS (BIO)
-        */
-        .dossier-container {
-            background-color: rgba(255, 255, 255, 0.02);
-            border-left: 4px solid #1a1a1a;
-            padding: 25px;
-            margin-bottom: 40px;
-            border-radius: 4px 20px 20px 4px;
-        }
-
-        .dossier-tag {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            letter-spacing: 4px;
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .dossier-text {
-            font-size: 0.9rem;
-            color: #bcbcbc;
+        .unit-desc {
+            font-size: 1.05rem;
+            color: var(--white-dim);
             line-height: 1.8;
+            margin-bottom: 50px;
+            min-height: 90px;
         }
 
-        .dossier-text b {
-            color: #ffffff;
-            font-weight: 700;
+        /* [7. DOSSIER_SYSTEM (BIO)]
+        ------------------------------------------------------------ */
+        .dossier-wrapper {
+            background-color: rgba(255, 255, 255, 0.02);
+            border-left-width: 4px;
+            border-left-style: solid;
+            border-left-color: var(--grey-dark);
+            
+            padding-top: 30px;
+            padding-right: 30px;
+            padding-bottom: 30px;
+            padding-left: 30px;
+            
+            margin-bottom: 50px;
+            border-radius: 4px 25px 25px 4px;
         }
 
-        /* INTERACTIVE BUTTONS
-        */
-        .action-area {
+        .dossier-label {
+            font-family: var(--font-tech);
+            font-size: 0.65rem;
+            color: var(--grey-muted);
+            letter-spacing: 5px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .dossier-content {
+            font-size: 0.95rem;
+            color: #b0b0b0;
+            line-height: 1.9;
+        }
+
+        .dossier-content b {
+            color: var(--white-pure);
+            font-weight: 800;
+        }
+
+        /* [8. BUTTON_INTERFACE]
+        ------------------------------------------------------------ */
+        .btn-container {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             margin-top: auto;
         }
 
-        .btn-ui {
+        .base-btn {
             flex: 1;
-            padding-top: 18px;
-            padding-bottom: 18px;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 800;
+            padding-top: 22px;
+            padding-bottom: 22px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
-            transition: 0.3s var(--easing);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-ghost {
+        .btn-outline {
             background-color: transparent;
-            border: 1px solid var(--border-primary);
-            color: #ffffff;
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--border-low);
+            color: var(--white-pure);
         }
 
-        .btn-ghost:hover {
+        .btn-outline:hover {
             background-color: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .btn-filled {
-            background-color: #ffffff;
-            color: #000000;
+        .btn-primary {
+            background-color: var(--white-pure);
+            color: #000;
             border: none;
         }
 
-        .btn-filled:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.25);
         }
 
-        /* RECRUITMENT SECTION
-        */
-        .recruitment-terminal {
+        /* [9. RECRUITMENT_TERMINAL]
+        ------------------------------------------------------------ */
+        .terminal-block {
             background-color: #050505;
-            border: 1px solid #111;
-            border-radius: 40px;
-            padding: 70px 40px;
-            margin-top: 40px;
-            margin-bottom: 60px;
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: var(--grey-dark);
+            
+            border-radius: 45px;
+            padding-top: 80px;
+            padding-right: 40px;
+            padding-bottom: 80px;
+            padding-left: 40px;
+            
+            margin-top: 50px;
+            margin-bottom: 80px;
             text-align: center;
-            position: relative;
         }
 
-        .terminal-header {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-            color: #fff;
+        .terminal-title {
+            font-family: var(--font-tech);
+            font-size: 1.3rem;
+            letter-spacing: 8px;
+            margin-bottom: 45px;
+            color: var(--white-pure);
         }
 
-        .roles-wrap {
+        .tags-group {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
-            max-width: 800px;
-            margin: 0 auto 50px;
+            max-width: 900px;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 50px;
+            margin-left: auto;
         }
 
-        .role-chip {
-            background-color: #0c0c0c;
-            border: 1px solid #1a1a1a;
-            padding: 12px 25px;
+        .tag-item {
+            background-color: #0b0b0b;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #1a1a1a;
+            
+            padding-top: 14px;
+            padding-right: 28px;
+            padding-bottom: 14px;
+            padding-left: 28px;
+            
             border-radius: 12px;
-            font-family: 'Space Mono', monospace;
+            font-family: var(--font-code);
             font-size: 0.8rem;
-            color: #555555;
+            color: #555;
             transition: 0.3s;
         }
 
-        .role-chip:hover {
+        .tag-item:hover {
             border-color: #333;
-            color: #fff;
-            transform: translateY(-3px);
+            color: var(--white-pure);
+            transform: translateY(-5px);
         }
 
-        /* RULES TRIGGER
-        */
-        .syndicate-laws-btn {
+        /* [10. LAWS_PROTOCOL_TRIGGER]
+        ------------------------------------------------------------ */
+        .laws-trigger {
             display: block;
             width: fit-content;
-            margin: 0 auto 100px;
-            background: none;
-            border: 1px solid var(--color-danger);
-            color: var(--color-danger);
-            padding: 25px 80px;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 120px;
+            margin-left: auto;
+            
+            background-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--danger-accent);
+            color: var(--danger-accent);
+            
+            padding-top: 28px;
+            padding-right: 100px;
+            padding-bottom: 28px;
+            padding-left: 100px;
+            
             border-radius: 100px;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 6px;
+            font-family: var(--font-tech);
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 8px;
             cursor: pointer;
-            transition: 0.5s var(--easing);
+            transition: 0.6s var(--transition-main);
         }
 
-        .syndicate-laws-btn:hover {
-            background-color: var(--color-danger);
-            color: #fff;
-            box-shadow: 0 0 50px rgba(255, 51, 51, 0.3);
+        .laws-trigger:hover {
+            background-color: var(--danger-accent);
+            color: var(--white-pure);
+            box-shadow: 0 0 60px rgba(255, 51, 51, 0.4);
         }
 
-        /* MODAL SYSTEM (RULES & PRICE)
-        */
-        .modal-base {
+        /* [11. MODAL_ARCHITECTURE]
+        ------------------------------------------------------------ */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--background-overlay);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            z-index: 9999;
+            background-color: var(--bg-modal);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            z-index: 99999;
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding-top: 25px;
+            padding-right: 25px;
+            padding-bottom: 25px;
+            padding-left: 25px;
         }
 
-        .modal-window {
-            background-color: #070707;
-            border: 1px solid var(--border-primary);
-            border-radius: 40px;
+        .modal-body {
+            background-color: #050505;
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--border-low);
+            
+            border-radius: 45px;
             width: 100%;
-            max-width: 750px;
-            max-height: 90vh;
+            max-width: 800px;
+            max-height: 88vh;
             overflow-y: auto;
-            padding: 60px;
+            padding-top: 70px;
+            padding-right: 60px;
+            padding-bottom: 70px;
+            padding-left: 60px;
+            
             position: relative;
         }
 
-        .modal-window::-webkit-scrollbar { width: 4px; }
-        .modal-window::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        .modal-body::-webkit-scrollbar { width: 4px; }
+        .modal-body::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
 
-        .law-item {
-            margin-bottom: 45px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #111;
+        .law-node {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: #111;
         }
 
-        .law-item:last-child { border-bottom: none; }
+        .law-node:last-child { border-bottom: none; }
 
-        .law-item h4 {
-            font-family: 'Space Mono', monospace;
-            font-size: 1rem;
-            color: #ffffff;
-            margin-bottom: 15px;
+        .law-node h4 {
+            font-family: var(--font-code);
+            font-size: 1.1rem;
+            color: var(--white-pure);
+            margin-bottom: 18px;
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .law-item h4::before {
+        .law-node h4::before {
             content: "";
-            width: 8px; height: 8px; background: var(--color-danger); border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: var(--danger-accent);
+            border-radius: 50%;
         }
 
-        .law-item p {
-            font-size: 0.9rem;
-            color: #777777;
-            line-height: 1.8;
+        .law-node p {
+            font-size: 0.95rem;
+            color: var(--grey-muted);
+            line-height: 1.9;
         }
 
-        .price-row {
+        /* [12. PRICING_CONSTRUCTION]
+        ------------------------------------------------------------ */
+        .price-entry {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #111;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: #111;
         }
 
-        .price-label { font-weight: 600; font-size: 1rem; }
-        .price-val-fiat { display: block; font-size: 0.9rem; color: #555; }
-        .price-val-crypto { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #fff; font-weight: 700; }
+        .price-info {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
 
-        /* FOOTER
-        */
-        .site-footer {
+        .price-fiat {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--grey-muted);
+            margin-top: 6px;
+        }
+
+        .price-crypto {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: var(--white-pure);
+            font-weight: 900;
+            text-align: right;
+        }
+
+        /* [13. FOOTER_PROTOCOL]
+        ------------------------------------------------------------ */
+        .master-footer {
             width: 100%;
-            padding-top: 60px;
-            padding-bottom: 60px;
-            border-top: 1px solid #0a0a0a;
+            padding-top: 70px;
+            padding-bottom: 70px;
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: #0a0a0a;
             text-align: center;
         }
 
-        .security-notice {
-            font-family: 'Space Mono', monospace;
+        .safety-log {
+            font-family: var(--font-code);
             font-size: 0.8rem;
-            color: #333333;
-            max-width: 800px;
-            margin-left: auto;
+            color: #333;
+            max-width: 850px;
+            margin-top: 0;
             margin-right: auto;
-            line-height: 1.6;
+            margin-bottom: 0;
+            margin-left: auto;
+            line-height: 1.8;
         }
 
-        .security-notice b { color: #666666; font-weight: 700; }
+        .safety-log b { color: #555; font-weight: 700; }
 
-        /* RESPONSIVE SYSTEM
-        */
-        @media (max-width: 900px) {
-            .grid-system { grid-template-columns: 1fr; }
-            .main-logo { letter-spacing: 15px; }
-            .modal-window { padding: 40px 25px; }
-            .syndicate-laws-btn { width: 100%; padding-left: 0; padding-right: 0; }
+        /* [14. MOBILE_CORE_OPTIMIZATION]
+        ------------------------------------------------------------ */
+        @media (max-width: 950px) {
+            .brand-logo { font-size: 4rem; letter-spacing: 15px; }
+            .cards-layout { grid-template-columns: 1fr; }
+            .syndicate-card { padding-top: 45px; padding-right: 35px; padding-bottom: 45px; padding-left: 35px; }
+        }
+
+        @media (max-width: 600px) {
+            .master-header { padding-top: 80px; }
+            .brand-logo { font-size: 2.8rem; letter-spacing: 10px; margin-bottom: 30px; }
+            .syndicate-motto { font-size: 0.65rem; padding-right: 20px; padding-left: 20px; letter-spacing: 2px; }
+            
+            .btn-container { flex-direction: column; }
+            .modal-body { padding-top: 50px; padding-right: 25px; padding-bottom: 50px; padding-left: 25px; }
+            
+            .laws-trigger { width: 100%; padding-right: 0; padding-left: 0; }
+            
+            .dossier-wrapper { padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; }
+            
+            .unit-avatar { width: 70px; height: 70px; font-size: 1.3rem; }
+            .unit-title h2 { font-size: 1.6rem; }
+        }
+
+        /* [15. ANIMATION_RESOURCES]
+        ------------------------------------------------------------ */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scanline-fx {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 204, 0.05), transparent);
+            z-index: 10001;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer">
-        <div class="bg-glow-1"></div>
-        <div class="bg-glow-2"></div>
+    <div class="overlay-fx"></div>
+    <div class="scanline-fx"></div>
+    <div class="bg-blobs">
+        <div class="blob-1"></div>
+        <div class="blob-2"></div>
     </div>
 
-    <header class="site-header">
-        <h1 class="main-logo">Arrancar</h1>
+    <header class="master-header">
+        <h1 class="brand-logo">Arrancar</h1>
         <div class="syndicate-motto">Твинков не имеем — за фейков не ручаемся</div>
     </header>
 
-    <main class="content-wrapper">
+    <main class="root-container">
         
-        <section class="grid-system">
+        <section class="cards-layout">
             
-            <div class="member-card">
-                <div class="card-identity">
-                    <div class="avatar-frame frame-mw">MW</div>
-                    <div class="id-details">
+            <article class="syndicate-card">
+                <div class="card-header-unit">
+                    <div class="unit-avatar av-mewasted">MW</div>
+                    <div class="unit-title">
                         <h2>Mewasted</h2>
                         <span>@mewasted</span>
                     </div>
                 </div>
 
-                <div class="service-description">
-                    Проектирование и разработка закрытых систем, Telegram-ботов высокой сложности и автоматизация бизнес-процессов.
-                </div>
+                <p class="unit-desc">
+                    Разработка сложных технических решений: боты, автоматизированные системы и закрытые инструменты для теневого сектора.
+                </p>
 
-                <div class="dossier-container">
-                    <span class="dossier-tag">Dossier #001 // OWNER</span>
-                    <div class="dossier-text">
-                        <b>@mewasted</b> — ведущий кодер и основатель клана <b>Arrancar</b>. 
-                        Имеет глубокий опыт работы в сфере <b>OSINT</b> и КМ (кастовый сектор). 
-                        Специализируется на создании уникального софта и продаже приватных услуг.
+                <div class="dossier-wrapper">
+                    <span class="dossier-label">Dossier #001 // SYSTEM OWNER</span>
+                    <div class="dossier-content">
+                        <b>@mewasted</b> — ведущий кодер и идеолог <b>Arrancar</b>. 
+                        Эксперт в области <b>OSINT</b> и приватной разработки. 
+                        Лично курирует реализацию каждого технического продукта в синдикате.
                     </div>
                 </div>
 
-                <div class="action-area">
-                    <button class="btn-ui btn-ghost" onclick="toggleModal('price_dev', true)">Прайс-лист</button>
-                    <a href="https://t.me/mewasted" class="btn-ui btn-filled">Связаться</a>
+                <div class="btn-container">
+                    <button class="base-btn btn-outline" onclick="openTerminal('price_dev')">Прайс-лист</button>
+                    <a href="https://t.me/mewasted" class="base-btn btn-primary">Инициировать ЛС</a>
                 </div>
-            </div>
+            </article>
 
-            <div class="member-card">
-                <div class="card-identity">
-                    <div class="avatar-frame frame-mr">MR</div>
-                    <div class="id-details">
+            <article class="syndicate-card">
+                <div class="card-header-unit">
+                    <div class="unit-avatar av-murdered">MR</div>
+                    <div class="unit-title">
                         <h2>Murdered</h2>
                         <span>@tg_murdered</span>
                     </div>
                 </div>
 
-                <div class="service-description">
-                    Создание эксклюзивного визуального стиля, упаковка проектов, брендинг и профессиональная графика любого уровня.
-                </div>
+                <p class="unit-desc">
+                    Визуальная идентичность и графическое превосходство: от аватар до полной упаковки брендов любой сложности.
+                </p>
 
-                <div class="dossier-container">
-                    <span class="dossier-tag">Dossier #002 // OWNER</span>
-                    <div class="dossier-text">
-                        <b>@tg_murdered</b> — главный дизайнер и со-владелец клана <b>Arrancar</b>. 
-                        Курирует все визуальные аспекты синдиката. Отвечает за оформление, 
-                        креативный контент и реализацию платных графических заказов.
+                <div class="dossier-wrapper">
+                    <span class="dossier-label">Dossier #002 // VISUAL OWNER</span>
+                    <div class="dossier-content">
+                        <b>@tg_murdered</b> — главный дизайнер и со-основатель <b>Arrancar</b>. 
+                        Отвечает за весь визуал синдиката и ведение приватных 
+                        дизайн-проектов для постоянных клиентов.
                     </div>
                 </div>
 
-                <div class="action-area">
-                    <button class="btn-ui btn-ghost" onclick="toggleModal('price_dsgn', true)">Прайс-лист</button>
-                    <a href="https://t.me/tg_murdered" class="btn-ui btn-filled">Связаться</a>
+                <div class="btn-container">
+                    <button class="base-btn btn-outline" onclick="openTerminal('price_dsgn')">Прайс-лист</button>
+                    <a href="https://t.me/tg_murdered" class="base-btn btn-primary">Инициировать ЛС</a>
                 </div>
-            </div>
+            </article>
 
         </section>
 
-        <section class="recruitment-terminal">
-            <h3 class="terminal-header">RECRUITMENT PROTOCOL</h3>
-            <p style="color: #444; margin-bottom: 40px; font-size: 0.9rem;">Нам нужны лучшие в своём деле. По вопросам вступления — к владельцам.</p>
+        <section class="terminal-block">
+            <h3 class="terminal-title">RECRUITMENT PROTOCOL</h3>
+            <p style="color: #444; margin-bottom: 45px; font-size: 0.95rem;">Синдикат ведет набор специалистов. По вопросам вступления обращаться в ЛС.</p>
             
-            <div class="roles-wrap">
-                <div class="role-chip">ДОКСЕРЫ</div>
-                <div class="role-chip">ОСИНТЕРЫ</div>
-                <div class="role-chip">СВАТЕРЫ</div>
-                <div class="role-chip">ДДОСЕРЫ</div>
-                <div class="role-chip">КОДЕРЫ</div>
-                <div class="role-chip">ДИЗАЙНЕРЫ</div>
-                <div class="role-chip">СНОСЕРЫ</div>
+            <div class="tags-group">
+                <div class="tag-item">ДОКСЕРЫ</div>
+                <div class="tag-item">ОСИНТЕРЫ</div>
+                <div class="tag-item">СВАТЕРЫ</div>
+                <div class="tag-item">ДДОСЕРЫ</div>
+                <div class="tag-item">КОДЕРЫ</div>
+                <div class="tag-item">ДИЗАЙНЕРЫ</div>
+                <div class="tag-item">СНОСЕРЫ</div>
             </div>
 
-            <a href="https://t.me/mewasted" style="color: #fff; font-family: 'Space Mono'; text-decoration: none; font-size: 0.75rem; border-bottom: 1px solid #333; padding-bottom: 5px;">
-                INITIATE CONTACT [SYSTEM_ENTRY]
+            <a href="https://t.me/mewasted" style="color: #fff; font-family: var(--font-code); text-decoration: none; font-size: 0.8rem; border-bottom: 1px solid #222; padding-bottom: 8px;">
+                REQUEST ACCESS [PRIVATE]
             </a>
         </section>
 
-        <button class="syndicate-laws-btn" onclick="toggleModal('rules_modal', true)">ПРАВИЛА</button>
+        <button class="laws-trigger" onclick="openTerminal('rules_modal')">ЗАКОНЫ</button>
 
     </main>
 
-    <footer class="site-footer">
-        <div class="security-notice">
-            <b>SECURITY ADVISORY:</b> ВСЕ ОПЕРАЦИИ ПРОВОДЯТСЯ В УСЛОВИЯХ ПОЛНОЙ КОНФИДЕНЦИАЛЬНОСТИ. 
-            ПРИ НЕДОВЕРИИ ЗАКАЗЧИКА МЫ ГОТОВЫ ИСПОЛЬЗОВАТЬ <b>FAN PAY</b> В КАЧЕСТВЕ ГАРАНТА. 
-            ДЕТАЛИ СДЕЛОК ОБСУЖДАЮТСЯ ИСКЛЮЧИТЕЛЬНО В ЛС.
+    <footer class="master-footer">
+        <div class="safety-log">
+            <b>SECURITY STATUS:</b> ВСЕ СДЕЛКИ ПРОВОДЯТСЯ В УСЛОВИЯХ ПОЛНОЙ ТЕНИ. 
+            ПРИ НЕОБХОДИМОСТИ МЫ ПРИНИМАЕМ ОПЛАТУ ЧЕРЕЗ <b>FAN PAY</b>. 
+            ФЕЙКИ ИГНОРИРУЮТСЯ. ТОЛЬКО ПРЯМЫЕ КОНТАКТЫ.
         </div>
     </footer>
 
-    <div class="modal-base" id="rules_modal" onclick="toggleModal('rules_modal', false)">
-        <div class="modal-window" onclick="event.stopPropagation()">
-            <h2 style="font-family: 'Syncopate'; margin-bottom: 50px; font-size: 1.2rem; letter-spacing: 5px;">SYNDICATE LAWS</h2>
+    <div class="modal-overlay" id="rules_modal" onclick="closeTerminal('rules_modal')">
+        <div class="modal-body" onclick="event.stopPropagation()">
+            <h2 style="font-family: var(--font-tech); margin-bottom: 50px; font-size: 1.3rem; letter-spacing: 5px;">SYNDICATE LAWS</h2>
             
-            <div class="law-item">
-                <h4>01. Финансовый протокол</h4>
-                <p>Мы работаем только по системе 50/100% предоплаты. Если клиент отменяет заказ после старта разработки — средства удерживаются в качестве компенсации за потраченное время.</p>
+            <div class="law-node">
+                <h4>01. Финансы</h4>
+                <p>Мы работаем строго по 50% или 100% предоплате. Если клиент инициирует отмену после начала работ — предоплата удерживается за ресурсное время.</p>
             </div>
 
-            <div class="law-item">
-                <h4>02. Техническое задание</h4>
-                <p>Требуется максимально подробное описание задачи. Любые правки, выходящие за рамки изначально утвержденного ТЗ, оплачиваются отдельно согласно почасовому тарифу.</p>
+            <div class="law-node">
+                <h4>02. Протокол ТЗ</h4>
+                <p>Клиент обязан предоставить полное описание задачи. Любые отклонения от начального плана оплачиваются отдельно.</p>
             </div>
 
-            <div class="law-item">
-                <h4>03. Гарантии и поддержка</h4>
-                <p>Бесплатная техподдержка софта предоставляется в течение 7 календарных дней после сдачи. Исправления багов из-за сторонних обновлений (API TG и т.д.) — платные.</p>
+            <div class="law-node">
+                <h4>03. Поддержка</h4>
+                <p>Гарантия на софт — 7 суток. Обновление под сторонние API после сдачи проекта — отдельная услуга.</p>
             </div>
 
-            <div class="law-item">
-                <h4>04. Кодекс поведения</h4>
-                <p>Мы ценим своё время. Спам, неадекватное общение или попытки обмана ведут к немедленному занесению в Black List и прекращению работы без возврата средств.</p>
+            <div class="law-node">
+                <h4>04. Этика</h4>
+                <p>Неадекватность, флуд или хамство в сторону владельцев — Black List без возможности восстановления и манибэка.</p>
             </div>
 
-            <div class="law-item">
-                <h4>05. Анонимность</h4>
-                <p>Синдикат гарантирует 100% неразглашение данных о заказчике и деталях проекта третьим лицам. Мы работаем в тени.</p>
-            </div>
-
-            <button class="btn-ui btn-ghost" style="width: 100%; margin-top: 20px;" onclick="toggleModal('rules_modal', false)">Закрыть терминал</button>
+            <button class="base-btn btn-outline" style="width: 100%; margin-top: 30px;" onclick="closeTerminal('rules_modal')">ЗАКРЫТЬ</button>
         </div>
     </div>
 
-    <div class="modal-base" id="price_dev" onclick="toggleModal('price_dev', false)">
-        <div class="modal-window" onclick="event.stopPropagation()">
-            <h2 style="font-family: 'Syncopate'; margin-bottom: 40px;">CODING_PRICE</h2>
-            <div id="dev_list"></div>
-            <button class="btn-ui btn-ghost" style="width: 100%; margin-top: 30px;" onclick="toggleModal('price_dev', false)">Назад</button>
+    <div class="modal-overlay" id="price_dev" onclick="closeTerminal('price_dev')">
+        <div class="modal-body" onclick="event.stopPropagation()">
+            <h2 style="font-family: var(--font-tech); margin-bottom: 45px;">DEVELOPMENT_PRICES</h2>
+            <div id="dev_render_target"></div>
+            <button class="base-btn btn-outline" style="width: 100%; margin-top: 40px;" onclick="closeTerminal('price_dev')">ВЕРНУТЬСЯ</button>
         </div>
     </div>
 
-    <div class="modal-base" id="price_dsgn" onclick="toggleModal('price_dsgn', false)">
-        <div class="modal-window" onclick="event.stopPropagation()">
-            <h2 style="font-family: 'Syncopate'; margin-bottom: 40px;">DESIGN_PRICE</h2>
-            <div id="dsgn_list"></div>
-            <button class="btn-ui btn-ghost" style="width: 100%; margin-top: 30px;" onclick="toggleModal('price_dsgn', false)">Назад</button>
+    <div class="modal-overlay" id="price_dsgn" onclick="closeTerminal('price_dsgn')">
+        <div class="modal-body" onclick="event.stopPropagation()">
+            <h2 style="font-family: var(--font-tech); margin-bottom: 45px;">DESIGN_PRICES</h2>
+            <div id="dsgn_render_target"></div>
+            <button class="base-btn btn-outline" style="width: 100%; margin-top: 40px;" onclick="closeTerminal('price_dsgn')">ВЕРНУТЬСЯ</button>
         </div>
     </div>
 
     <script>
-        /* DATA REPOSITORY
-        */
-        const pricingData = {
+        /* [DATA_CENTER] */
+        const syndicateData = {
             dev: [
-                ['TG Бот (Light)', '200₽ / 1.000₸', '1.0 TON | 100 ⭐'],
-                ['TG Бот (Middle)', '500₽ / 2.500₸', '2.0 TON | 250 ⭐'],
-                ['TG Бот (Hard)', '700₽ / 3.500₸', '3.0 TON | 350 ⭐'],
-                ['Сайт-визитка', '500₽ / 2.500₸', '2.0 TON | 250 ⭐'],
-                ['Сайт (Наш хостинг)', '800₽ / 4.000₸', '3.5 TON | 400 ⭐'],
-                ['Сайт (Industrial)', 'от 1.500₽', 'от 5.0 TON | 750 ⭐'],
-                ['Доступ в Приват ТГК', '400₽ / 2.000₸', '2.0 TON | 200 ⭐']
+                ['TG Бот (Basic)', '200₽ / 1.000₸', '1.0 TON | 150 ⭐'],
+                ['TG Бот (Advanced)', '500₽ / 2.500₸', '2.0 TON | 300 ⭐'],
+                ['TG Бот (Enterprise)', '700₽ / 3.500₸', '3.5 TON | 500 ⭐'],
+                ['Landing Page', '500₽ / 2.500₸', '2.0 TON | 300 ⭐'],
+                ['Web System (Host)', '800₽ / 4.000₸', '4.0 TON | 600 ⭐'],
+                ['Complex Solution', 'от 1.500₽', 'от 6.5 TON'],
+                ['Access Private Channel', '400₽ / 2.000₸', '2.0 TON']
             ],
             dsgn: [
-                ['Аватарка (Solo)', '200₽ / 1.000₸', '1.0 TON | 100 ⭐'],
-                ['Аватарки (Duo)', '400₽ / 2.000₸', '2.0 TON | 200 ⭐'],
-                ['Аватарки (Team)', 'от 800₽', '3.5 TON | 400 ⭐'],
-                ['Оформление ТГ', '200₽ / 1.000₸', '1.0 TON | 100 ⭐'],
-                ['Превью (YouTube)', '500₽ / 2.500₸', '2.0 TON | 250 ⭐'],
-                ['Доступ в Приват ТГК', '400₽ / 2.000₸', '2.0 TON | 200 ⭐']
+                ['Logo / Avatar', '200₽ / 1.000₸', '1.0 TON | 150 ⭐'],
+                ['Duo Design Pack', '400₽ / 2.000₸', '2.0 TON | 300 ⭐'],
+                ['Team Identity', 'от 800₽', '4.0 TON | 600 ⭐'],
+                ['TG Channel Branding', '200₽ / 1.000₸', '1.0 TON | 150 ⭐'],
+                ['High-End Preview', '500₽ / 2.500₸', '2.0 TON | 300 ⭐'],
+                ['Full Brand Case', 'от 2.000₽', 'от 8.0 TON'],
+                ['Access Private Channel', '400₽ / 2.000₸', '2.0 TON']
             ]
         };
 
-        /* MODAL CONTROLLER
-        */
-        function toggleModal(targetId, isActive) {
-            const modalElement = document.getElementById(targetId);
-            if (isActive) {
-                modalElement.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-                if (targetId === 'price_dev') renderPrice('dev');
-                if (targetId === 'price_dsgn') renderPrice('dsgn');
-            } else {
-                modalElement.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
+        /* [MODAL_ENGINE] */
+        function openTerminal(id) {
+            const node = document.getElementById(id);
+            node.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            if (id === 'price_dev') renderContent('dev');
+            if (id === 'price_dsgn') renderContent('dsgn');
         }
 
-        /* PRICE RENDERER
-        */
-        function renderPrice(category) {
-            const listElement = document.getElementById(`${category}_list`);
-            const items = pricingData[category];
-            let htmlBuffer = '';
+        function closeTerminal(id) {
+            const node = document.getElementById(id);
+            node.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        /* [CONTENT_RENDERER] */
+        function renderContent(type) {
+            const target = document.getElementById(`${type}_render_target`);
+            const pool = syndicateData[type];
+            let buffer = '';
             
-            items.forEach(item => {
-                htmlBuffer += `
-                    <div class="price-row">
-                        <div class="price-label">
-                            ${item[0]}
-                            <span class="price-val-fiat">${item[1]}</span>
+            pool.forEach(row => {
+                buffer += `
+                    <div class="price-entry">
+                        <div class="price-info">
+                            ${row[0]}
+                            <span class="price-fiat">${row[1]}</span>
                         </div>
-                        <div class="price-val-crypto">${item[2]}</div>
+                        <div class="price-crypto">${row[2]}</div>
                     </div>
                 `;
             });
             
-            listElement.innerHTML = htmlBuffer;
+            target.innerHTML = buffer;
         }
 
-        /* CONSOLE INITIALIZATION
-        */
-        console.log("%c ARRANCAR SYNDICATE %c v3.0 ONLINE ", 
-            "background: #000; color: #00ffcc; padding: 5px; font-weight: bold;", 
-            "background: #00ffcc; color: #000; padding: 5px; font-weight: bold;");
+        /* [BOOT_SEQUENCE] */
+        window.onload = () => {
+            console.log("%c [SYS] ARRANCAR V4.0 LOADED ", "background: #000; color: #00ffcc; font-weight: bold;");
+        };
     </script>
 </body>
 </html>
