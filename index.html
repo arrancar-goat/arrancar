@@ -18,7 +18,7 @@
             --accent-murdered: #bb86fc;
             --text-main: #ffffff;
             --text-dim: #888888;
-            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Улучшенная плавность */
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -32,7 +32,6 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            opacity: 0; /* Изначально скрываем тело для анимации загрузки */
             animation: bodyFadeIn 1s ease forwards;
         }
 
@@ -41,8 +40,8 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(3, 218, 198, 0.04) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(187, 134, 252, 0.04) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(3, 218, 198, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(187, 134, 252, 0.06) 0%, transparent 40%);
             filter: blur(80px);
         }
 
@@ -50,8 +49,7 @@
             text-align: center;
             margin: 80px 0 60px;
             padding: 0 20px;
-            opacity: 0;
-            animation: titleEntrance 1.2s ease out 0.2s forwards; /* Анимация заголовка с задержкой */
+            animation: titleEntrance 1.2s ease-out forwards;
         }
 
         h1 {
@@ -62,10 +60,8 @@
             background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.3) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
 
-        /* --- КОНТЕЙНЕР С КАРТОЧКАМИ --- */
         .main-container {
             display: flex;
             justify-content: center;
@@ -73,7 +69,6 @@
             max-width: 1200px;
             width: 100%;
             padding: 0 20px;
-            transition: 0.5s;
         }
 
         .profile-card {
@@ -88,25 +83,22 @@
             flex-direction: column;
             justify-content: space-between;
             transition: var(--transition);
-            opacity: 0; /* Изначально скрыты для анимации появления */
+            opacity: 0;
             transform: translateY(30px);
         }
 
-        /* Анимация появления карточек по очереди */
-        .profile-card:nth-child(1) { animation: cardEntrance 1s ease out 0.6s forwards; }
-        .profile-card:nth-child(2) { animation: cardEntrance 1s ease out 0.9s forwards; }
+        .profile-card:nth-child(1) { animation: cardEntrance 1s ease-out 0.4s forwards; }
+        .profile-card:nth-child(2) { animation: cardEntrance 1s ease-out 0.7s forwards; }
 
         .profile-card:hover {
-            transform: translateY(-12px) scale(1.01);
+            transform: translateY(-12px);
             border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* --- ПРЕДУПРЕЖДЕНИЕ --- */
         .warning-notice {
             margin: 60px 20px;
-            padding: 25px 30px;
+            padding: 25px;
             border-radius: 25px;
             background: rgba(255, 0, 0, 0.02);
             border: 1px solid rgba(255, 0, 0, 0.1);
@@ -114,81 +106,56 @@
             max-width: 850px;
             width: calc(100% - 40px);
             opacity: 0;
-            animation: fadeInDown 1s ease out 1.5s forwards; /* Появляется последним */
+            animation: bodyFadeIn 1s ease forwards 1.2s;
         }
 
         .warning-notice p {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(0.6rem, 2.8vw, 0.9rem);
-            letter-spacing: 3px;
+            font-size: clamp(0.6rem, 2.8vw, 0.8rem);
+            letter-spacing: 2px;
             color: #ff4d4d;
             text-transform: uppercase;
-            font-weight: bold;
-            filter: drop-shadow(0 0 10px rgba(255,77,77,0.3));
         }
 
-        /* Элементы внутри карт */
         .role-badge {
             display: inline-block; padding: 7px 15px; border-radius: 50px;
             font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
             letter-spacing: 2px; margin-bottom: 20px;
-            transition: 0.3s;
         }
-        .profile-card:hover .role-badge { transform: scale(1.05); }
-        .badge-mewasted { background: rgba(3, 218, 198, 0.1); color: var(--accent-mewasted); box-shadow: 0 0 15px rgba(3,218,198,0.1); }
-        .badge-murdered { background: rgba(187, 134, 252, 0.1); color: var(--accent-murdered); box-shadow: 0 0 15px rgba(187,134,252,0.1); }
+        .badge-mewasted { background: rgba(3, 218, 198, 0.1); color: var(--accent-mewasted); }
+        .badge-murdered { background: rgba(187, 134, 252, 0.1); color: var(--accent-murdered); }
         
-        .user-name { font-family: 'Syncopate', sans-serif; font-size: 2rem; margin-bottom: 15px; }
-        .user-bio { color: var(--text-dim); font-size: 1rem; line-height: 1.7; margin-bottom: 35px; }
+        .user-name { font-family: 'Syncopate', sans-serif; font-size: 1.8rem; margin-bottom: 15px; }
+        .user-bio { color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; margin-bottom: 30px; }
 
         .btn-group { display: flex; gap: 15px; }
         .btn {
             flex: 1; padding: 18px 10px; border-radius: 15px; font-weight: 700;
             text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;
-            text-align: center; cursor: pointer; font-size: 12px; border: none;
+            text-align: center; cursor: pointer; font-size: 11px; border: none;
             transition: 0.3s;
         }
         .btn-details { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-color); }
-        .btn-details:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
-        
-        .btn-contact { background: #fff; color: #000; box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
-        .btn-contact:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255,255,255,0.2); opacity: 0.9; }
+        .btn-contact { background: #fff; color: #000; }
 
-        /* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (В РЯД, СКРОЛЛ) --- */
         @media (max-width: 850px) {
             .main-container {
                 justify-content: flex-start;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding: 10px 25px 40px;
-                gap: 20px;
-                -webkit-overflow-scrolling: touch;
+                padding-bottom: 30px;
+                gap: 15px;
             }
-
             .main-container::-webkit-scrollbar { display: none; }
-
-            .profile-card {
-                min-width: 88vw;
-                scroll-snap-align: center;
-                padding: 35px 30px;
-                border-radius: 35px;
-            }
-
-            .user-name { font-size: 1.6rem; }
-            .user-bio { font-size: 0.9rem; }
-            header { margin: 60px 0 40px; }
-            .warning-notice { margin: 30px 20px 50px; padding: 20px; }
+            .profile-card { min-width: 85vw; scroll-snap-align: center; }
         }
 
-        /* Футер */
         .main-footer {
             width: 100%;
             background: rgba(255, 255, 255, 0.01);
             border-top: 1px solid var(--border-color);
-            padding: 70px 20px 40px;
+            padding: 60px 20px;
             margin-top: auto;
-            opacity: 0;
-            animation: fadeInDown 1s ease out 1.8s forwards;
         }
 
         .footer-content {
@@ -200,31 +167,19 @@
             flex-wrap: wrap;
         }
 
-        @media (max-width: 768px) {
-            .footer-content { flex-direction: column; text-align: center; }
-        }
+        @keyframes bodyFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes titleEntrance { from { opacity: 0; letter-spacing: 35px; transform: translateY(-20px); } to { opacity: 1; letter-spacing: clamp(8px, 3vw, 20px); transform: translateY(0); } }
+        @keyframes cardEntrance { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Модалка */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
             display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
-            opacity: 0; transition: opacity 0.4s ease;
         }
-        .modal-overlay.active { display: flex; opacity: 1; }
         .modal-box {
             background: #111; border: 1px solid var(--border-color);
             padding: 40px; border-radius: 30px; width: 100%; max-width: 450px;
-            transform: scale(0.9); transition: 0.4s ease;
         }
-        .modal-overlay.active .modal-box { transform: scale(1); }
-
-        /* Определение ключевых кадров анимации */
-        @keyframes bodyFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes titleEntrance { from { opacity: 0; letter-spacing: 35px; transform: translateY(-20px); } to { opacity: 1; letter-spacing: clamp(8px, 3vw, 20px); transform: translateY(0); } }
-        @keyframes cardEntrance { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
     </style>
 </head>
 <body>
@@ -240,7 +195,7 @@
             <div>
                 <span class="role-badge badge-mewasted">Owner / Developer</span>
                 <h2 class="user-name">@mewasted</h2>
-                <p class="user-bio">Владелец клана. Кодер с бэкграундом в комьюнити под кастой OSINT. Разработка любой сложности и автоматизация процессов.</p>
+                <p class="user-bio">Владелец клана. Разработка любой сложности, автоматизация процессов и экспертные решения.</p>
             </div>
             <div class="btn-group">
                 <button class="btn btn-details" onclick="openModal('mewasted')">Услуги</button>
@@ -252,7 +207,7 @@
             <div>
                 <span class="role-badge badge-murdered">Co-Owner / Designer</span>
                 <h2 class="user-name">@tg_murdered</h2>
-                <p class="user-bio">Второй владелец клана. Визуальный стиль и графический интерфейс. Предоставляет эксклюзивные услуги дизайна.</p>
+                <p class="user-bio">Второй владелец клана. Визуальный стиль, интерфейсы и эксклюзивный дизайн.</p>
             </div>
             <div class="btn-group">
                 <button class="btn btn-details" onclick="openModal('murdered')">Услуги</button>
@@ -268,44 +223,37 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px;">Work Rules</h3>
-                <ul style="list-style: none; color: var(--text-dim); font-size: 0.85rem;">
-                    <li>• Предоплата 50%</li>
-                    <li>• Гарантия качества</li>
-                    <li>• Быстрые дедлайны</li>
-                </ul>
+                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px;">Work Rules</h3>
+                <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">• Предоплата 50%<br>• Гарантия качества<br>• Быстрые дедлайны</p>
             </div>
             <div class="footer-section">
-                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px;">Join Us</h3>
-                <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px;">Нам нужны доксеры, осинтеры, сватеры, ддосеры, кодеры, дизайнеры и сносеры.</p>
-                <div style="background: rgba(3,218,198,0.1); color: var(--accent-mewasted); padding: 7px 15px; border-radius: 50px; font-size: 0.7rem; display: inline-block; font-weight: 800; letter-spacing: 1px;">RECRUITMENT OPEN</div>
+                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px;">Join Us</h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Нам нужны: доксеры, осинтеры, сватеры, ддосеры, кодеры, дизайнеры.</p>
+                <div style="color: var(--accent-mewasted); font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;">RECRUITMENT OPEN</div>
             </div>
         </div>
     </footer>
 
     <div class="modal-overlay" id="modal" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h2 id="modalTitle" style="font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 20px; color: #fff; letter-spacing: 2px;"></h2>
-            <ul id="modalList" style="list-style: none; color: #999; line-height: 2; font-size: 0.95rem;"></ul>
-            <button class="btn btn-details" style="margin-top: 30px; width: 100%; letter-spacing: 2px;" onclick="closeModal()">Закрыть</button>
+            <h2 id="modalTitle" style="font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 20px; color: #fff;"></h2>
+            <ul id="modalList" style="list-style: none; color: #999; line-height: 2; font-size: 0.9rem;"></ul>
+            <button class="btn btn-details" style="margin-top: 30px; width: 100%;" onclick="closeModal()">Закрыть</button>
         </div>
     </div>
 
     <script>
         const info = {
-            'mewasted': { title: 'Coding Services', list: ['• Telegram боты любой сложности', '• Скрипты автоматизации процессов', '• OSINT запросы и исследования', '• Кастомный софт'] },
-            'murdered': { title: 'Design Services', list: ['• Полное оформление ТГ', '• Уникальные логотипы', '• Рекламные баннеры и креативы', '• UI/UX Дизайн'] }
+            'mewasted': { title: 'Coding Services', list: ['• Telegram боты', '• Скрипты автоматизации', '• OSINT исследования', '• Кастомный софт'] },
+            'murdered': { title: 'Design Services', list: ['• Оформление ТГ', '• Логотипы', '• Баннеры', '• UI/UX Дизайн'] }
         };
         const modal = document.getElementById('modal');
         function openModal(user) {
             document.getElementById('modalTitle').innerText = info[user].title;
             document.getElementById('modalList').innerHTML = info[user].list.map(i => `<li>${i}</li>`).join('');
-            modal.classList.add('active'); // Анимация открытия модалки
+            modal.style.display = 'flex';
         }
-        function closeModal() { modal.classList.remove('active'); } // Анимация закрытия
-        
-        // Закрытие модалки по ESC
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        function closeModal() { modal.style.display = 'none'; }
     </script>
 </body>
 </html>
