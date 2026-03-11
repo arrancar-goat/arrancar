@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arrancar Brothers | Official</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-mewasted: #03dac6;
+            --accent-murdered: #bb86fc;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(3, 218, 198, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(187, 134, 252, 0.04) 0%, transparent 40%);
+            filter: blur(80px);
+        }
+
+        header {
+            text-align: center;
+            margin: 60px 0;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1.5rem, 8vw, 3.5rem);
+            letter-spacing: clamp(5px, 2vw, 15px);
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- КОНТЕЙНЕР С КАРТОЧКАМИ --- */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            max-width: 1100px;
+            width: 100%;
+            padding: 0 20px;
+            transition: 0.5s;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: clamp(25px, 5vw, 45px);
+            flex: 1;
+            min-width: 320px;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        /* --- ПРЕДУПРЕЖДЕНИЕ --- */
+        .warning-notice {
+            margin: 40px 20px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 0, 0, 0.03);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            text-align: center;
+            max-width: 800px;
+            width: calc(100% - 40px);
+        }
+
+        .warning-notice p {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(0.55rem, 2.5vw, 0.8rem);
+            letter-spacing: 2px;
+            color: #ff4d4d;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Элементы внутри карт */
+        .role-badge {
+            display: inline-block; padding: 5px 12px; border-radius: 50px;
+            font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 15px;
+        }
+        .badge-mewasted { background: rgba(3, 218, 198, 0.1); color: var(--accent-mewasted); }
+        .badge-murdered { background: rgba(187, 134, 252, 0.1); color: var(--accent-murdered); }
+        .user-name { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; margin-bottom: 10px; }
+        .user-bio { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; margin-bottom: 25px; }
+
+        .btn-group { display: flex; gap: 10px; }
+        .btn {
+            flex: 1; padding: 14px 5px; border-radius: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+            text-align: center; cursor: pointer; font-size: 10px; border: none;
+        }
+        .btn-details { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-color); }
+        .btn-contact { background: #fff; color: #000; }
+
+        /* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (В РЯД) --- */
+        @media (max-width: 768px) {
+            .main-container {
+                justify-content: flex-start;
+                overflow-x: auto; /* Включаем горизонтальный скролл */
+                scroll-snap-type: x mandatory; /* Магнитный эффект при скролле */
+                padding: 10px 25px 30px;
+                gap: 15px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Скрываем полосу прокрутки */
+            .main-container::-webkit-scrollbar { display: none; }
+
+            .profile-card {
+                min-width: 85vw; /* Каждая карточка почти на весь экран */
+                scroll-snap-align: center; /* Центрирование при остановке скролла */
+                padding: 30px 25px;
+            }
+
+            .user-name { font-size: 1.3rem; }
+            .user-bio { font-size: 0.85rem; }
+        }
+
+        /* Футер */
+        .main-footer {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.01);
+            border-top: 1px solid var(--border-color);
+            padding: 50px 20px 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+
+        /* Модалка */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+        }
+        .modal-box {
+            background: #111; border: 1px solid var(--border-color);
+            padding: 30px; border-radius: 25px; width: 100%; max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <header>
+        <h1>Arrancar Brothers</h1>
+    </header>
+
+    <main class="main-container">
+        <div class="profile-card">
+            <div>
+                <span class="role-badge badge-mewasted">Owner / Developer</span>
+                <h2 class="user-name">@mewasted</h2>
+                <p class="user-bio">Владелец клана. Кодер с бэкграундом в комьюнити под кастой OSINT. Разработка любой сложности и автоматизация процессов.</p>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-details" onclick="openModal('mewasted')">Услуги</button>
+                <a href="https://t.me/mewasted" class="btn btn-contact">Написать</a>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div>
+                <span class="role-badge badge-murdered">Co-Owner / Designer</span>
+                <h2 class="user-name">@tg_murdered</h2>
+                <p class="user-bio">Второй владелец клана. Визуальный стиль и графический интерфейс. Предоставляет эксклюзивные услуги дизайна.</p>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-details" onclick="openModal('murdered')">Услуги</button>
+                <a href="https://t.me/tg_murdered" class="btn btn-contact">Написать</a>
+            </div>
+        </div>
+    </main>
+
+    <div class="warning-notice">
+        <p>Твинков не имеем — за фейков не ручаемся</p>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 style="font-family: 'Syncopate'; font-size: 0.75rem; margin-bottom: 12px; letter-spacing: 2px;">Work Rules</h3>
+                <ul style="list-style: none; color: var(--text-dim); font-size: 0.8rem;">
+                    <li>• Предоплата 50%</li>
+                    <li>• Гарантия качества</li>
+                    <li>• Быстрые дедлайны</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 style="font-family: 'Syncopate'; font-size: 0.75rem; margin-bottom: 12px; letter-spacing: 2px;">Join Us</h3>
+                <p style="font-size: 0.75rem; color: #666; margin-bottom: 10px;">Нам нужны доксеры, осинтеры, сватеры, ддосеры, кодеры, дизайнеры и сносеры.</p>
+                <div style="background: rgba(3,218,198,0.1); color: var(--accent-mewasted); padding: 5px 12px; border-radius: 50px; font-size: 0.65rem; display: inline-block; font-weight: 800; letter-spacing: 1px;">RECRUITMENT OPEN</div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modal" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h2 id="modalTitle" style="font-family: 'Syncopate'; font-size: 0.9rem; margin-bottom: 15px; color: #fff;"></h2>
+            <ul id="modalList" style="list-style: none; color: #888; line-height: 1.8; font-size: 0.85rem;"></ul>
+            <button class="btn btn-details" style="margin-top: 25px; width: 100%;" onclick="closeModal()">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        const info = {
+            'mewasted': { title: 'Coding Services', list: ['• Telegram боты', '• Скрипты автоматизации', '• OSINT запросы', '• IT-Консалтинг'] },
+            'murdered': { title: 'Design Services', list: ['• Оформление ТГ', '• Логотипы', '• Баннеры/Креативы', '• UI Дизайн'] }
+        };
+        function openModal(user) {
+            document.getElementById('modalTitle').innerText = info[user].title;
+            document.getElementById('modalList').innerHTML = info[user].list.map(i => `<li>${i}</li>`).join('');
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    </script>
+</body>
+</html>
