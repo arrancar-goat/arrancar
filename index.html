@@ -3,620 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Arrancar Brothers | Official Roster & Services</title>
+    <title>Arrancar Syndicate | Official Hub</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Syncopate:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ === */
+        /* ЦВЕТОВАЯ ПАЛИТРА И ПЕРЕМЕННЫЕ
+        */
         :root {
-            --bg-deep: #030303;
-            --bg-card: rgba(15, 15, 15, 0.6);
-            --border-glow: rgba(255, 255, 255, 0.08);
-            --accent-dev: #00ffcc; /* Неоновый бирюзовый для кода */
-            --accent-dsgn: #b026ff; /* Неоновый фиолетовый для дизайна */
-            --text-main: #f0f0f0;
-            --text-muted: #7a7a7a;
-            --glass-blur: blur(24px);
-            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-black: #020202;
+            --card-surface: #0a0a0a;
+            --accent-dev: #00ffcc; 
+            --accent-dsgn: #b026ff;
+            --accent-red: #ff3333; /* Тот самый красный для девиза */
+            --text-primary: #ffffff;
+            --text-secondary: #999999;
+            --border-main: rgba(255, 255, 255, 0.05);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* === ГЛОБАЛЬНЫЙ СБРОС И ТЕЛО === */
+        /* ОБНУЛЕНИЕ И БАЗОВЫЕ СТИЛИ
+        */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            scrollbar-width: thin;
-            scrollbar-color: #333 #000;
         }
 
-        *::-webkit-scrollbar { width: 6px; }
-        *::-webkit-scrollbar-track { background: var(--bg-deep); }
-        *::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
+            background-color: var(--bg-black);
+            color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* === ФОНОВЫЕ ЭФФЕКТЫ И АНИМАЦИИ === */
-        .ambient-background {
+        /* Анимированный градиент на фоне */
+        .bg-gradient {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -2;
-            background: 
-                radial-gradient(circle at 15% 30%, rgba(0, 255, 204, 0.04) 0%, transparent 45%),
-                radial-gradient(circle at 85% 70%, rgba(176, 38, 255, 0.04) 0%, transparent 45%);
-            filter: var(--glass-blur);
-            animation: pulseGlow 8s infinite alternate ease-in-out;
-        }
-
-        .grid-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 10%, rgba(0, 255, 204, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 90%, rgba(176, 38, 255, 0.03) 0%, transparent 50%);
             z-index: -1;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
         }
 
-        /* === ШАПКА === */
+        /* ШАПКА САЙТА (HEADER)
+        */
         header {
             text-align: center;
-            margin: 80px 0 50px;
+            margin: 100px 0 60px;
             padding: 0 20px;
-            animation: fadeDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(-30px);
         }
 
         h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.8rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 12vw, 6rem);
             font-weight: 900;
-            letter-spacing: clamp(6px, 2vw, 18px);
+            letter-spacing: clamp(10px, 4vw, 30px);
             text-transform: uppercase;
-            background: linear-gradient(180deg, #ffffff 0%, #666666 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #333333 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .subtitle {
+        .motto {
+            color: var(--accent-red);
             font-family: 'Space Mono', monospace;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            letter-spacing: 4px;
-            margin-top: 15px;
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-top: 20px;
             text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
         }
 
-        /* === ГЛАВНЫЙ КОНТЕЙНЕР КАРТОЧЕК === */
-        .roster-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
+        /* СЕКЦИЯ КАРТОЧЕК (ЗАКАЗЫ)
+        */
+        .section-wrapper {
             max-width: 1200px;
             width: 100%;
-            padding: 0 20px 60px;
-            z-index: 10;
-        }
-
-        /* === КАРТОЧКА ПРОФИЛЯ === */
-        .profile-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 30px;
-            padding: 40px;
-            flex: 1;
-            min-width: 380px;
-            max-width: 500px;
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 0 25px;
             display: flex;
             flex-direction: column;
+            gap: 60px;
+        }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .order-card {
+            background: var(--card-surface);
+            border: 1px solid var(--border-main);
+            border-radius: 30px;
+            padding: 40px;
             position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: var(--transition-smooth);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Анимации появления карточек */
-        .profile-card:nth-child(1) { animation: fadeUp 1s ease-out 0.3s forwards; }
-        .profile-card:nth-child(2) { animation: fadeUp 1s ease-out 0.5s forwards; }
-
-        .profile-card:hover {
-            transform: translateY(-10px) scale(1.01);
-            border-color: rgba(255,255,255,0.15);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        .order-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        /* Лента продаж */
-        .sales-ribbon {
-            position: absolute;
-            top: 25px;
-            right: -40px;
-            background: #ffffff;
-            color: #000000;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.6rem;
-            font-weight: 900;
-            padding: 8px 50px;
-            transform: rotate(45deg);
-            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
-            letter-spacing: 1px;
-            z-index: 2;
-        }
-
-        /* === ИМИТАЦИЯ ТЕЛЕГРАМ ПРОФИЛЯ === */
-        .tg-profile-widget {
+        .card-header {
             display: flex;
             align-items: center;
             gap: 20px;
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 30px;
         }
 
-        .tg-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.5rem;
-            color: #fff;
-            position: relative;
-            border: 2px solid rgba(255,255,255,0.1);
+        .avatar {
+            width: 65px; height: 65px; border-radius: 50%;
+            background: #111; display: flex; align-items: center;
+            justify-content: center; font-family: 'Syncopate';
+            border: 1px solid var(--border-main);
+        }
+        .av-mw { color: var(--accent-dev); box-shadow: 0 0 20px rgba(0,255,204,0.1); }
+        .av-mr { color: var(--accent-dsgn); box-shadow: 0 0 20px rgba(176,38,255,0.1); }
+
+        .name-tag h2 { font-size: 1.5rem; font-weight: 900; }
+        .name-tag p { font-family: 'Space Mono'; color: var(--text-secondary); font-size: 0.8rem; }
+
+        .btn-group { display: flex; gap: 12px; margin-top: 30px; }
+        .btn {
+            flex: 1; padding: 16px 0; border-radius: 14px;
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+            text-align: center; text-decoration: none; cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-outline { border: 1px solid var(--border-main); color: #fff; }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); }
+        .btn-solid { background: #fff; color: #000; }
+        .btn-solid:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* СЕКЦИЯ БИО (ПОД КАРТОЧКАМИ)
+        */
+        .bio-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
         }
 
-        .tg-avatar.dev::after {
-            content: ''; position: absolute; bottom: 2px; right: 2px;
-            width: 14px; height: 14px; background: var(--accent-dev);
-            border-radius: 50%; border: 3px solid var(--bg-deep);
-        }
-        
-        .tg-avatar.dsgn::after {
-            content: ''; position: absolute; bottom: 2px; right: 2px;
-            width: 14px; height: 14px; background: var(--accent-dsgn);
-            border-radius: 50%; border: 3px solid var(--bg-deep);
+        .bio-block {
+            padding: 30px;
+            border-top: 1px solid #1a1a1a;
         }
 
-        .tg-info h2 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .bio-label {
+            font-family: 'Syncopate'; font-size: 0.6rem;
+            color: var(--text-secondary); letter-spacing: 3px;
+            margin-bottom: 15px; display: block;
         }
-
-        .tg-username {
-            font-family: 'Space Mono', monospace;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Бейджи ролей */
-        .role-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            font-family: 'Space Mono', monospace;
-        }
-        .badge-dev { background: rgba(0, 255, 204, 0.1); color: var(--accent-dev); border: 1px solid rgba(0,255,204,0.2); }
-        .badge-dsgn { background: rgba(176, 38, 255, 0.1); color: var(--accent-dsgn); border: 1px solid rgba(176,38,255,0.2); }
 
         .bio-text {
-            color: #a0a0a0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 35px;
-            flex-grow: 1;
+            font-size: 0.95rem; color: #bbb; line-height: 1.8;
+        }
+        .bio-text b { color: #fff; font-weight: 700; }
+
+        /* СЕКЦИЯ РЕКРУТИНГА
+        */
+        .recruitment-bar {
+            background: #080808; border: 1px solid var(--border-main);
+            border-radius: 25px; padding: 50px 30px; text-align: center;
         }
 
-        /* === КНОПКИ === */
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: auto;
+        .recruit-title { font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 25px; letter-spacing: 2px; }
+        
+        .tags-container {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 12px; margin-bottom: 30px;
+        }
+        .tag {
+            background: rgba(255,255,255,0.02); border: 1px solid #222;
+            padding: 8px 18px; border-radius: 10px; font-family: 'Space Mono';
+            font-size: 0.7rem; color: #666;
         }
 
-        .btn {
-            flex: 1;
-            padding: 16px 0;
-            border-radius: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        /* КНОПКА ПРАВИЛ И МОДАЛКА
+        */
+        .rules-trigger-container {
+            display: flex; justify-content: center; margin-bottom: 80px;
         }
 
-        .btn-price {
-            background: rgba(255,255,255,0.03);
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.1);
+        .btn-rules {
+            background: none; border: 1px solid var(--accent-red);
+            color: var(--accent-red); padding: 20px 60px; border-radius: 50px;
+            font-family: 'Syncopate'; font-size: 0.8rem; cursor: pointer;
+            transition: var(--transition); letter-spacing: 4px;
         }
-        .btn-price:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+        .btn-rules:hover { background: var(--accent-red); color: #fff; box-shadow: 0 0 30px rgba(255, 51, 51, 0.2); }
 
-        .btn-tg-dev { background: #fff; color: #000; border: none; }
-        .btn-tg-dev:hover { background: var(--accent-dev); box-shadow: 0 0 20px rgba(0,255,204,0.4); }
-
-        .btn-tg-dsgn { background: #fff; color: #000; border: none; }
-        .btn-tg-dsgn:hover { background: var(--accent-dsgn); box-shadow: 0 0 20px rgba(176,38,255,0.4); }
-
-        /* === МОДАЛЬНОЕ ОКНО (ПРАЙС-ЛИСТ) === */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
             padding: 20px;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
         .modal-content {
-            background: #0a0a0a;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 650px;
-            max-height: 85vh;
-            overflow-y: auto;
-            transform: scale(0.95) translateY(20px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            background: #0a0a0a; border: 1px solid var(--border-main);
+            border-radius: 35px; width: 100%; max-width: 700px;
+            max-height: 85vh; overflow-y: auto; padding: 50px;
         }
 
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
+        .rule-item { margin-bottom: 30px; }
+        .rule-item h4 { font-family: 'Space Mono'; color: #fff; margin-bottom: 10px; font-size: 0.9rem; text-transform: uppercase; }
+        .rule-item p { font-size: 0.85rem; color: #888; line-height: 1.6; }
+
+        /* ФУТЕР
+        */
+        footer {
+            padding: 40px 20px; text-align: center; border-top: 1px solid #111;
+            width: 100%; margin-top: auto;
         }
+        .safety-text { font-family: 'Space Mono'; font-size: 0.75rem; color: #444; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .safety-text b { color: #888; }
 
-        .modal-header {
-            padding: 25px 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 10;
+        /* АДАПТИВНОСТЬ ПОД ТЕЛЕФОНЫ
+        */
+        @media (max-width: 800px) {
+            header { margin: 60px 0 40px; }
+            .order-grid { grid-template-columns: 1fr; }
+            .bio-section { grid-template-columns: 1fr; gap: 10px; }
+            .modal-content { padding: 30px 20px; }
+            .btn-rules { width: 100%; }
         }
-
-        .modal-title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .close-btn:hover { color: #fff; }
-
-        /* Таблица прайса */
-        .price-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .price-table th {
-            text-align: left;
-            padding: 15px 30px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .price-row {
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            transition: background 0.3s;
-        }
-        .price-row:hover { background: rgba(255,255,255,0.02); }
-        .price-row:last-child { border-bottom: none; }
-
-        .price-cell {
-            padding: 20px 30px;
-            vertical-align: middle;
-        }
-
-        .service-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .service-fiat {
-            color: #888;
-            font-size: 0.8rem;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .service-crypto {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: flex-end;
-        }
-
-        .crypto-tag {
-            background: rgba(255,255,255,0.05);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            min-width: 90px;
-            justify-content: center;
-        }
-
-        .tag-ton { color: #0098EA; border: 1px solid rgba(0, 152, 234, 0.2); }
-        .tag-star { color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.2); }
-
-        .modal-footer {
-            padding: 20px 30px;
-            background: rgba(255,255,255,0.01);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: #555;
-            letter-spacing: 1px;
-        }
-
-        /* === АДАПТИВНОСТЬ (МОБИЛЬНЫЕ) === */
-        @media (max-width: 900px) {
-            .roster-container {
-                flex-direction: column;
-                align-items: center;
-                padding: 0 15px 40px;
-            }
-            .profile-card {
-                width: 100%;
-                min-width: 100%;
-                padding: 30px 20px;
-            }
-            .price-table th { display: none; }
-            .price-row { display: flex; flex-direction: column; padding: 15px 20px; }
-            .price-cell { padding: 0; }
-            .service-crypto { align-items: flex-start; flex-direction: row; margin-top: 12px; flex-wrap: wrap; }
-            .sales-ribbon { right: -45px; top: 20px; }
-        }
-
-        /* === КЕЙФРЕЙМЫ === */
-        @keyframes pulseGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
-        @keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="ambient-background"></div>
-    <div class="grid-overlay"></div>
+    <div class="bg-gradient"></div>
 
     <header>
         <h1>Arrancar</h1>
-        <div class="subtitle">Private Syndicate</div>
+        <div class="motto">Твинков не имеем — за фейков не ручаемся</div>
     </header>
 
-    <main class="roster-container">
+    <main class="section-wrapper">
         
-        <div class="profile-card">
-            <div class="sales-ribbon">SALES OPEN</div>
-            
-            <div class="tg-profile-widget">
-                <div class="tg-avatar dev">MW</div>
-                <div class="tg-info">
-                    <h2>Mewasted <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent-dev)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></h2>
-                    <div class="tg-username">@mewasted</div>
+        <div class="order-grid">
+            <div class="order-card">
+                <div class="card-header">
+                    <div class="avatar av-mw">MW</div>
+                    <div class="name-tag">
+                        <h2>Mewasted</h2>
+                        <p>@mewasted</p>
+                    </div>
+                </div>
+                <div style="font-family: 'Space Mono'; font-size: 0.6rem; color: var(--accent-dev); letter-spacing: 2px; margin-bottom: 15px;">DEVELOPMENT UNIT</div>
+                <p style="font-size: 0.9rem; color: #777; flex-grow: 1;">Разработка высокопроизводительных ботов и автоматизированных скриптов.</p>
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="openPrice('dev')">Прайс</button>
+                    <a href="https://t.me/mewasted" class="btn btn-solid">Заказать</a>
                 </div>
             </div>
 
-            <span class="role-badge badge-dev">Industrial Developer</span>
-            
-            <p class="bio-text">
-                Проектирование и разработка закрытых систем. Создаю Telegram-ботов любой сложности, отказоустойчивые веб-платформы и скрипты автоматизации. Чистый код, строгие дедлайны.
-            </p>
-
-            <div class="action-buttons">
-                <button class="btn btn-price" onclick="openModal('dev')">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                    Прайс-лист
-                </button>
-                <a href="https://t.me/mewasted" target="_blank" class="btn btn-tg-dev">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.96 1.25-5.54 3.67-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.03-.48-.81-.27-1.46-.41-1.4-.86.03-.23.36-.47.99-.71 3.9-1.7 6.5-2.82 7.79-3.36 3.7-1.55 4.47-1.82 4.97-1.83.11 0 .36.03.52.16.13.11.17.26.19.37.01.07.03.22.01.36z"/></svg>
-                    Заказать
-                </a>
-            </div>
-        </div>
-
-        <div class="profile-card">
-            <div class="sales-ribbon">SALES OPEN</div>
-
-            <div class="tg-profile-widget">
-                <div class="tg-avatar dsgn">MR</div>
-                <div class="tg-info">
-                    <h2>Murdered <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent-dsgn)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></h2>
-                    <div class="tg-username">@tg_murdered</div>
+            <div class="order-card">
+                <div class="card-header">
+                    <div class="avatar av-mr">MR</div>
+                    <div class="name-tag">
+                        <h2>Murdered</h2>
+                        <p>@tg_murdered</p>
+                    </div>
+                </div>
+                <div style="font-family: 'Space Mono'; font-size: 0.6rem; color: var(--accent-dsgn); letter-spacing: 2px; margin-bottom: 15px;">VISUAL UNIT</div>
+                <p style="font-size: 0.9rem; color: #777; flex-grow: 1;">Профессиональный дизайн, упаковка брендов и эксклюзивная графика.</p>
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="openPrice('dsgn')">Прайс</button>
+                    <a href="https://t.me/tg_murdered" class="btn btn-solid">Заказать</a>
                 </div>
             </div>
+        </div>
 
-            <span class="role-badge badge-dsgn">Creative Visualist</span>
-            
-            <p class="bio-text">
-                Эксклюзивный визуал и упаковка проектов. Создаю графику, которая продает: от статических аватарок до полного брендинга Telegram-сетей. Ваш проект будет выглядеть дорого.
-            </p>
-
-            <div class="action-buttons">
-                <button class="btn btn-price" onclick="openModal('dsgn')">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                    Прайс-лист
-                </button>
-                <a href="https://t.me/tg_murdered" target="_blank" class="btn btn-tg-dsgn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.96 1.25-5.54 3.67-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.03-.48-.81-.27-1.46-.41-1.4-.86.03-.23.36-.47.99-.71 3.9-1.7 6.5-2.82 7.79-3.36 3.7-1.55 4.47-1.82 4.97-1.83.11 0 .36.03.52.16.13.11.17.26.19.37.01.07.03.22.01.36z"/></svg>
-                    Заказать
-                </a>
+        <div class="bio-section">
+            <div class="bio-block">
+                <span class="bio-label">PERSONAL DOSSIER</span>
+                <p class="bio-text">
+                    <b>@mewasted</b> — кодер и владелец клана <b>Arrancar</b>. Является опытным разработчиком, ранее находился в КМ под кастой <b>OSINT</b>. 
+                    Помимо управления синдикатом, лично занимается реализацией сложных технических заказов и продает свои услуги.
+                </p>
+            </div>
+            <div class="bio-block">
+                <span class="bio-label">PERSONAL DOSSIER</span>
+                <p class="bio-text">
+                    <b>@tg_murdered</b> — дизайнер и второй владелец клана <b>Arrancar</b>. Полностью отвечает за визуальную составляющую, оформление 
+                    и всё, что связано с графикой. Ведёт авторские платные проекты по дизайну любой сложности.
+                </p>
             </div>
         </div>
+
+        <div class="recruitment-bar">
+            <h3 class="recruit-title">RECRUITMENT</h3>
+            <p style="color: #555; font-size: 0.85rem; margin-bottom: 25px;">Для вступления пишите владельцам. Нам требуются:</p>
+            <div class="tags-container">
+                <div class="tag">ДОКСЕРЫ</div>
+                <div class="tag">ОСИНТЕРЫ</div>
+                <div class="tag">СВАТЕРЫ</div>
+                <div class="tag">ДДОСЕРЫ</div>
+                <div class="tag :">КОДЕРЫ</div>
+                <div class="tag">ДИЗАЙНЕРЫ</div>
+                <div class="tag">СНОСЕРЫ</div>
+            </div>
+        </div>
+
+        <div class="rules-trigger-container">
+            <button class="btn-rules" onclick="toggleModal('rulesModal', true)">ПРАВИЛА</button>
+        </div>
+
     </main>
 
-    <div class="modal-overlay" id="priceModal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modalTitle">PRICE LIST</h3>
-                <button class="close-btn" onclick="closeModal(event, true)">&times;</button>
-            </div>
-            
-            <table class="price-table">
-                <thead>
-                    <tr>
-                        <th>Услуга</th>
-                        <th style="text-align: right;">Стоимость</th>
-                    </tr>
-                </thead>
-                <tbody id="modalBody">
-                    </tbody>
-            </table>
+    <footer>
+        <p class="safety-text">
+            <b>SAFETY PROTOCOL:</b> ПРИ НЕДОВЕРИИ ПОКУПАТЕЛЯ МЫ МОЖЕМ ПРОВЕРНУТЬ СДЕЛКУ ЧЕРЕЗ <b>FAN PAY</b>. 
+            ОБСУЖДАЕТСЯ ИНДИВИДУАЛЬНО В ЛИЧНЫХ СООБЩЕНИЯХ.
+        </p>
+    </footer>
 
-            <div class="modal-footer">
-                ПРЕДОПЛАТА 50% • ПРИНИМАЕМ RUB, KZT, TON, STARS
+    <div class="modal-overlay" id="rulesModal" onclick="toggleModal('rulesModal', false)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 style="font-family: 'Syncopate'; margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 20px;">SYNDICATE RULES</h2>
+            
+            <div class="rule-item">
+                <h4>01. Оплата и возврат</h4>
+                <p>Работа начинается строго после предоплаты (50% или 100%). В случае отказа клиента после начала работы — предоплата не возвращается.</p>
             </div>
+
+            <div class="rule-item">
+                <h4>02. Техническое задание</h4>
+                <p>Клиент обязан предоставить четкое ТЗ. Любые изменения в процессе, не описанные в ТЗ, оплачиваются отдельно.</p>
+            </div>
+
+            <div class="rule-item">
+                <h4>03. Поддержка</h4>
+                <p>Гарантия на работу софта составляет 7 дней. Дальнейшие правки из-за обновлений сторонних сервисов — платные.</p>
+            </div>
+
+            <div class="rule-item">
+                <h4>04. Конфиденциальность</h4>
+                <p>Мы гарантируем полную анонимность ваших заказов. Данные третьим лицам не передаются.</p>
+            </div>
+
+            <div class="rule-item" style="border: 1px dashed #333; padding: 20px; border-radius: 15px;">
+                <h4 style="color: var(--accent-red);">Важно</h4>
+                <p>За любое проявление неадекватного поведения, спам или оскорбления владельцев — заказ аннулируется без манибэка.</p>
+            </div>
+
+            <button class="btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="toggleModal('rulesModal', false)">Закрыть</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="priceModal" onclick="toggleModal('priceModal', false)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="pTitle" style="font-family: 'Syncopate'; margin-bottom: 30px;">PRICE</h2>
+            <div id="pList"></div>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 30px;" onclick="toggleModal('priceModal', false)">Вернуться</button>
         </div>
     </div>
 
     <script>
-        // База данных с вашими ценами
-        const priceData = {
+        // ДАННЫЕ ПРАЙС-ЛИСТОВ
+        const pricing = {
             dev: {
-                title: 'MEWASTED | DEV PRICE',
-                color: 'var(--accent-dev)',
+                title: 'DEVELOPMENT',
                 items: [
-                    { name: 'TG Бот (Легкий)', fiat: '200₽ / 1.000₸', ton: '1 TON', stars: '100 ⭐' },
-                    { name: 'TG Бот (Средний)', fiat: '500₽ / 2.500₸', ton: '2 TON', stars: '250 ⭐' },
-                    { name: 'TG Бот (Тяжелый)', fiat: '700₽ / 3.500₸', ton: '3 TON', stars: '350 ⭐' },
-                    { name: 'Сайт-визитка', fiat: '500₽ / 2.500₸', ton: '2 TON', stars: '250 ⭐' },
-                    { name: 'Сайт (Наш хостинг)', fiat: '800₽ / 4.000₸', ton: '3 TON', stars: '400 ⭐' },
-                    { name: 'Сайт (Тяжелый/Complex)', fiat: 'от 1.500₽ / 7.500₸', ton: 'от 5 TON', stars: 'от 750 ⭐' },
-                    { name: 'Доступ в Приват ТГК', fiat: '400₽ / 2.000₸', ton: '2 TON', stars: '200 ⭐' }
+                    ['TG Бот (Легкий)', '200₽ / 1.000₸', '1 TON'],
+                    ['TG Бот (Средний)', '500₽ / 2.500₸', '2 TON'],
+                    ['TG Бот (Тяжелый)', '700₽ / 3.500₸', '3 TON'],
+                    ['Сайт-визитка', '500₽ / 2.500₸', '2 TON'],
+                    ['Сайт (Наш хост)', '800₽ / 4.000₸', '3 TON'],
+                    ['Сайт (Complex)', 'от 1500₽', 'от 5 TON']
                 ]
             },
             dsgn: {
-                title: 'MURDERED | DESIGN PRICE',
-                color: 'var(--accent-dsgn)',
+                title: 'DESIGN',
                 items: [
-                    { name: 'Аватарка (Одиночная)', fiat: '200₽ / 1.000₸', ton: '1 TON', stars: '100 ⭐' },
-                    { name: 'Аватарки (Парные)', fiat: '400₽ / 2.000₸', ton: '2 TON', stars: '200 ⭐' },
-                    { name: 'Аватарки (Командные)', fiat: 'от 800₽ / 4.000₸', ton: 'от 3 TON', stars: 'от 400 ⭐' },
-                    { name: 'Оформление акка ТГ', fiat: '200₽ / 1.000₸', ton: '1 TON', stars: '100 ⭐' },
-                    { name: 'Превью для видео/поста', fiat: '500₽ / 2.500₸', ton: '2 TON', stars: '250 ⭐' },
-                    { name: 'Доступ в Приват ТГК', fiat: '400₽ / 2.000₸', ton: '2 TON', stars: '200 ⭐' }
+                    ['Аватарка (Solo)', '200₽ / 1.000₸', '1 TON'],
+                    ['Аватарки (Duo)', '400₽ / 2.000₸', '2 TON'],
+                    ['Аватарки (Team)', 'от 800₽', '3 TON'],
+                    ['Оформление ТГ', '200₽ / 1.000₸', '1 TON'],
+                    ['Превью', '500₽ / 2.500₸', '2 TON']
                 ]
             }
         };
 
-        const modal = document.getElementById('priceModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-
-        // Функция открытия модалки
-        function openModal(type) {
-            const data = priceData[type];
-            
-            // Настраиваем заголовок
-            modalTitle.innerText = data.title;
-            modalTitle.style.color = data.color;
-
-            // Генерируем таблицу
-            modalBody.innerHTML = '';
-            data.items.forEach(item => {
-                const row = document.createElement('tr');
-                row.className = 'price-row';
-                
-                row.innerHTML = `
-                    <td class="price-cell">
-                        <div class="service-name">${item.name}</div>
-                        <div class="service-fiat">${item.fiat}</div>
-                    </td>
-                    <td class="price-cell">
-                        <div class="service-crypto">
-                            <span class="crypto-tag tag-ton">${item.ton}</span>
-                            <span class="crypto-tag tag-star">${item.stars}</span>
-                        </div>
-                    </td>
-                `;
-                modalBody.appendChild(row);
-            });
-
-            // Показываем окно
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Запрет прокрутки фона
+        // ЛОГИКА ОКРЫТИЯ МОДАЛОК
+        function toggleModal(id, show) {
+            const m = document.getElementById(id);
+            m.style.display = show ? 'flex' : 'none';
+            document.body.style.overflow = show ? 'hidden' : 'auto';
         }
 
-        // Функция закрытия модалки
-        function closeModal(event, force = false) {
-            // Закрываем, если кликнули на крестик ИЛИ на темный фон вне карточки
-            if (force || event.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto'; // Возвращаем прокрутку
-            }
+        function openPrice(type) {
+            const data = pricing[type];
+            document.getElementById('pTitle').innerText = data.title;
+            let html = '';
+            data.items.forEach(i => {
+                html += `
+                    <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #1a1a1a;">
+                        <span style="font-size: 0.9rem; font-weight: 600;">${i[0]}</span>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.8rem; color: #fff;">${i[1]}</div>
+                            <div style="font-size: 0.7rem; color: #555; font-family: 'Space Mono';">${i[2]}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('pList').innerHTML = html;
+            toggleModal('priceModal', true);
         }
     </script>
 </body>
