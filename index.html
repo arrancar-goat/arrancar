@@ -18,7 +18,7 @@
             --accent-murdered: #bb86fc;
             --text-main: #ffffff;
             --text-dim: #888888;
-            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Улучшенная плавность */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -32,6 +32,8 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            opacity: 0; /* Изначально скрываем тело для анимации загрузки */
+            animation: bodyFadeIn 1s ease forwards;
         }
 
         .ambient-glow {
@@ -46,26 +48,29 @@
 
         header {
             text-align: center;
-            margin: 60px 0;
+            margin: 80px 0 60px;
             padding: 0 20px;
+            opacity: 0;
+            animation: titleEntrance 1.2s ease out 0.2s forwards; /* Анимация заголовка с задержкой */
         }
 
         h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.5rem, 8vw, 3.5rem);
-            letter-spacing: clamp(5px, 2vw, 15px);
+            font-size: clamp(1.8rem, 9vw, 4rem);
+            letter-spacing: clamp(8px, 3vw, 20px);
             text-transform: uppercase;
             background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.3) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
         }
 
         /* --- КОНТЕЙНЕР С КАРТОЧКАМИ --- */
         .main-container {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            max-width: 1100px;
+            gap: 30px;
+            max-width: 1200px;
             width: 100%;
             padding: 0 20px;
             transition: 0.5s;
@@ -74,85 +79,105 @@
         .profile-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: clamp(25px, 5vw, 45px);
+            border-radius: 40px;
+            padding: clamp(30px, 6vw, 55px);
             flex: 1;
-            min-width: 320px;
+            min-width: 350px;
             backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: var(--transition);
+            opacity: 0; /* Изначально скрыты для анимации появления */
+            transform: translateY(30px);
         }
 
+        /* Анимация появления карточек по очереди */
+        .profile-card:nth-child(1) { animation: cardEntrance 1s ease out 0.6s forwards; }
+        .profile-card:nth-child(2) { animation: cardEntrance 1s ease out 0.9s forwards; }
+
         .profile-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-12px) scale(1.01);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         /* --- ПРЕДУПРЕЖДЕНИЕ --- */
         .warning-notice {
-            margin: 40px 20px;
-            padding: 20px;
-            border-radius: 20px;
-            background: rgba(255, 0, 0, 0.03);
+            margin: 60px 20px;
+            padding: 25px 30px;
+            border-radius: 25px;
+            background: rgba(255, 0, 0, 0.02);
             border: 1px solid rgba(255, 0, 0, 0.1);
             text-align: center;
-            max-width: 800px;
+            max-width: 850px;
             width: calc(100% - 40px);
+            opacity: 0;
+            animation: fadeInDown 1s ease out 1.5s forwards; /* Появляется последним */
         }
 
         .warning-notice p {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(0.55rem, 2.5vw, 0.8rem);
-            letter-spacing: 2px;
+            font-size: clamp(0.6rem, 2.8vw, 0.9rem);
+            letter-spacing: 3px;
             color: #ff4d4d;
             text-transform: uppercase;
             font-weight: bold;
+            filter: drop-shadow(0 0 10px rgba(255,77,77,0.3));
         }
 
         /* Элементы внутри карт */
         .role-badge {
-            display: inline-block; padding: 5px 12px; border-radius: 50px;
-            font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 15px;
+            display: inline-block; padding: 7px 15px; border-radius: 50px;
+            font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 20px;
+            transition: 0.3s;
         }
-        .badge-mewasted { background: rgba(3, 218, 198, 0.1); color: var(--accent-mewasted); }
-        .badge-murdered { background: rgba(187, 134, 252, 0.1); color: var(--accent-murdered); }
-        .user-name { font-family: 'Syncopate', sans-serif; font-size: 1.5rem; margin-bottom: 10px; }
-        .user-bio { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; margin-bottom: 25px; }
+        .profile-card:hover .role-badge { transform: scale(1.05); }
+        .badge-mewasted { background: rgba(3, 218, 198, 0.1); color: var(--accent-mewasted); box-shadow: 0 0 15px rgba(3,218,198,0.1); }
+        .badge-murdered { background: rgba(187, 134, 252, 0.1); color: var(--accent-murdered); box-shadow: 0 0 15px rgba(187,134,252,0.1); }
+        
+        .user-name { font-family: 'Syncopate', sans-serif; font-size: 2rem; margin-bottom: 15px; }
+        .user-bio { color: var(--text-dim); font-size: 1rem; line-height: 1.7; margin-bottom: 35px; }
 
-        .btn-group { display: flex; gap: 10px; }
+        .btn-group { display: flex; gap: 15px; }
         .btn {
-            flex: 1; padding: 14px 5px; border-radius: 12px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
-            text-align: center; cursor: pointer; font-size: 10px; border: none;
+            flex: 1; padding: 18px 10px; border-radius: 15px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;
+            text-align: center; cursor: pointer; font-size: 12px; border: none;
+            transition: 0.3s;
         }
         .btn-details { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-color); }
-        .btn-contact { background: #fff; color: #000; }
+        .btn-details:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+        
+        .btn-contact { background: #fff; color: #000; box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
+        .btn-contact:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255,255,255,0.2); opacity: 0.9; }
 
-        /* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (В РЯД) --- */
-        @media (max-width: 768px) {
+        /* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (В РЯД, СКРОЛЛ) --- */
+        @media (max-width: 850px) {
             .main-container {
                 justify-content: flex-start;
-                overflow-x: auto; /* Включаем горизонтальный скролл */
-                scroll-snap-type: x mandatory; /* Магнитный эффект при скролле */
-                padding: 10px 25px 30px;
-                gap: 15px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding: 10px 25px 40px;
+                gap: 20px;
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* Скрываем полосу прокрутки */
             .main-container::-webkit-scrollbar { display: none; }
 
             .profile-card {
-                min-width: 85vw; /* Каждая карточка почти на весь экран */
-                scroll-snap-align: center; /* Центрирование при остановке скролла */
-                padding: 30px 25px;
+                min-width: 88vw;
+                scroll-snap-align: center;
+                padding: 35px 30px;
+                border-radius: 35px;
             }
 
-            .user-name { font-size: 1.3rem; }
-            .user-bio { font-size: 0.85rem; }
+            .user-name { font-size: 1.6rem; }
+            .user-bio { font-size: 0.9rem; }
+            header { margin: 60px 0 40px; }
+            .warning-notice { margin: 30px 20px 50px; padding: 20px; }
         }
 
         /* Футер */
@@ -160,8 +185,10 @@
             width: 100%;
             background: rgba(255, 255, 255, 0.01);
             border-top: 1px solid var(--border-color);
-            padding: 50px 20px 30px;
+            padding: 70px 20px 40px;
             margin-top: auto;
+            opacity: 0;
+            animation: fadeInDown 1s ease out 1.8s forwards;
         }
 
         .footer-content {
@@ -169,7 +196,7 @@
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
         }
 
@@ -180,13 +207,24 @@
         /* Модалка */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
             display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+            opacity: 0; transition: opacity 0.4s ease;
         }
+        .modal-overlay.active { display: flex; opacity: 1; }
         .modal-box {
             background: #111; border: 1px solid var(--border-color);
-            padding: 30px; border-radius: 25px; width: 100%; max-width: 400px;
+            padding: 40px; border-radius: 30px; width: 100%; max-width: 450px;
+            transform: scale(0.9); transition: 0.4s ease;
         }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+
+        /* Определение ключевых кадров анимации */
+        @keyframes bodyFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes titleEntrance { from { opacity: 0; letter-spacing: 35px; transform: translateY(-20px); } to { opacity: 1; letter-spacing: clamp(8px, 3vw, 20px); transform: translateY(0); } }
+        @keyframes cardEntrance { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
     </style>
 </head>
 <body>
@@ -230,40 +268,44 @@
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3 style="font-family: 'Syncopate'; font-size: 0.75rem; margin-bottom: 12px; letter-spacing: 2px;">Work Rules</h3>
-                <ul style="list-style: none; color: var(--text-dim); font-size: 0.8rem;">
+                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px;">Work Rules</h3>
+                <ul style="list-style: none; color: var(--text-dim); font-size: 0.85rem;">
                     <li>• Предоплата 50%</li>
                     <li>• Гарантия качества</li>
                     <li>• Быстрые дедлайны</li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3 style="font-family: 'Syncopate'; font-size: 0.75rem; margin-bottom: 12px; letter-spacing: 2px;">Join Us</h3>
-                <p style="font-size: 0.75rem; color: #666; margin-bottom: 10px;">Нам нужны доксеры, осинтеры, сватеры, ддосеры, кодеры, дизайнеры и сносеры.</p>
-                <div style="background: rgba(3,218,198,0.1); color: var(--accent-mewasted); padding: 5px 12px; border-radius: 50px; font-size: 0.65rem; display: inline-block; font-weight: 800; letter-spacing: 1px;">RECRUITMENT OPEN</div>
+                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px;">Join Us</h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px;">Нам нужны доксеры, осинтеры, сватеры, ддосеры, кодеры, дизайнеры и сносеры.</p>
+                <div style="background: rgba(3,218,198,0.1); color: var(--accent-mewasted); padding: 7px 15px; border-radius: 50px; font-size: 0.7rem; display: inline-block; font-weight: 800; letter-spacing: 1px;">RECRUITMENT OPEN</div>
             </div>
         </div>
     </footer>
 
     <div class="modal-overlay" id="modal" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h2 id="modalTitle" style="font-family: 'Syncopate'; font-size: 0.9rem; margin-bottom: 15px; color: #fff;"></h2>
-            <ul id="modalList" style="list-style: none; color: #888; line-height: 1.8; font-size: 0.85rem;"></ul>
-            <button class="btn btn-details" style="margin-top: 25px; width: 100%;" onclick="closeModal()">Закрыть</button>
+            <h2 id="modalTitle" style="font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 20px; color: #fff; letter-spacing: 2px;"></h2>
+            <ul id="modalList" style="list-style: none; color: #999; line-height: 2; font-size: 0.95rem;"></ul>
+            <button class="btn btn-details" style="margin-top: 30px; width: 100%; letter-spacing: 2px;" onclick="closeModal()">Закрыть</button>
         </div>
     </div>
 
     <script>
         const info = {
-            'mewasted': { title: 'Coding Services', list: ['• Telegram боты', '• Скрипты автоматизации', '• OSINT запросы', '• IT-Консалтинг'] },
-            'murdered': { title: 'Design Services', list: ['• Оформление ТГ', '• Логотипы', '• Баннеры/Креативы', '• UI Дизайн'] }
+            'mewasted': { title: 'Coding Services', list: ['• Telegram боты любой сложности', '• Скрипты автоматизации процессов', '• OSINT запросы и исследования', '• Кастомный софт'] },
+            'murdered': { title: 'Design Services', list: ['• Полное оформление ТГ', '• Уникальные логотипы', '• Рекламные баннеры и креативы', '• UI/UX Дизайн'] }
         };
+        const modal = document.getElementById('modal');
         function openModal(user) {
             document.getElementById('modalTitle').innerText = info[user].title;
             document.getElementById('modalList').innerHTML = info[user].list.map(i => `<li>${i}</li>`).join('');
-            document.getElementById('modal').style.display = 'flex';
+            modal.classList.add('active'); // Анимация открытия модалки
         }
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+        function closeModal() { modal.classList.remove('active'); } // Анимация закрытия
+        
+        // Закрытие модалки по ESC
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>
 </html>
