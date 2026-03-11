@@ -3,28 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Arrancar Brothers | Official</title>
+    <title>Arrancar Brothers | Official Roster & Services</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Syncopate:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
+        /* === БАЗОВЫЕ ПЕРЕМЕННЫЕ === */
         :root {
-            --bg-color: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-mewasted: #03dac6;
-            --accent-murdered: #bb86fc;
-            --text-main: #ffffff;
-            --text-dim: #888888;
-            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            --bg-deep: #030303;
+            --bg-card: rgba(15, 15, 15, 0.6);
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --accent-dev: #00ffcc; /* Неоновый бирюзовый для кода */
+            --accent-dsgn: #b026ff; /* Неоновый фиолетовый для дизайна */
+            --text-main: #f0f0f0;
+            --text-muted: #7a7a7a;
+            --glass-blur: blur(24px);
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* === ГЛОБАЛЬНЫЙ СБРОС И ТЕЛО === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #000;
+        }
+
+        *::-webkit-scrollbar { width: 6px; }
+        *::-webkit-scrollbar-track { background: var(--bg-deep); }
+        *::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
@@ -32,228 +46,578 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            animation: bodyFadeIn 1s ease forwards;
+            position: relative;
         }
 
-        .ambient-glow {
+        /* === ФОНОВЫЕ ЭФФЕКТЫ И АНИМАЦИИ === */
+        .ambient-background {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(3, 218, 198, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(187, 134, 252, 0.06) 0%, transparent 40%);
-            filter: blur(80px);
+                radial-gradient(circle at 15% 30%, rgba(0, 255, 204, 0.04) 0%, transparent 45%),
+                radial-gradient(circle at 85% 70%, rgba(176, 38, 255, 0.04) 0%, transparent 45%);
+            filter: var(--glass-blur);
+            animation: pulseGlow 8s infinite alternate ease-in-out;
         }
 
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
+        }
+
+        /* === ШАПКА === */
         header {
             text-align: center;
-            margin: 80px 0 60px;
+            margin: 80px 0 50px;
             padding: 0 20px;
-            animation: titleEntrance 1.2s ease-out forwards;
+            animation: fadeDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(-30px);
         }
 
         h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(1.8rem, 9vw, 4rem);
-            letter-spacing: clamp(8px, 3vw, 20px);
+            font-size: clamp(1.8rem, 6vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: clamp(6px, 2vw, 18px);
             text-transform: uppercase;
-            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.3) 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #666666 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .main-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            max-width: 1200px;
-            width: 100%;
-            padding: 0 20px;
-        }
-
-        .profile-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 40px;
-            padding: clamp(30px, 6vw, 55px);
-            flex: 1;
-            min-width: 350px;
-            backdrop-filter: blur(20px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .profile-card:nth-child(1) { animation: cardEntrance 1s ease-out 0.4s forwards; }
-        .profile-card:nth-child(2) { animation: cardEntrance 1s ease-out 0.7s forwards; }
-
-        .profile-card:hover {
-            transform: translateY(-12px);
-            border-color: rgba(255,255,255,0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .warning-notice {
-            margin: 60px 20px;
-            padding: 25px;
-            border-radius: 25px;
-            background: rgba(255, 0, 0, 0.02);
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            text-align: center;
-            max-width: 850px;
-            width: calc(100% - 40px);
-            opacity: 0;
-            animation: bodyFadeIn 1s ease forwards 1.2s;
-        }
-
-        .warning-notice p {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(0.6rem, 2.8vw, 0.8rem);
-            letter-spacing: 2px;
-            color: #ff4d4d;
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            margin-top: 15px;
             text-transform: uppercase;
         }
 
-        .role-badge {
-            display: inline-block; padding: 7px 15px; border-radius: 50px;
-            font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 2px; margin-bottom: 20px;
-        }
-        .badge-mewasted { background: rgba(3, 218, 198, 0.1); color: var(--accent-mewasted); }
-        .badge-murdered { background: rgba(187, 134, 252, 0.1); color: var(--accent-murdered); }
-        
-        .user-name { font-family: 'Syncopate', sans-serif; font-size: 1.8rem; margin-bottom: 15px; }
-        .user-bio { color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; margin-bottom: 30px; }
-
-        .btn-group { display: flex; gap: 15px; }
-        .btn {
-            flex: 1; padding: 18px 10px; border-radius: 15px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;
-            text-align: center; cursor: pointer; font-size: 11px; border: none;
-            transition: 0.3s;
-        }
-        .btn-details { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-color); }
-        .btn-contact { background: #fff; color: #000; }
-
-        @media (max-width: 850px) {
-            .main-container {
-                justify-content: flex-start;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                padding-bottom: 30px;
-                gap: 15px;
-            }
-            .main-container::-webkit-scrollbar { display: none; }
-            .profile-card { min-width: 85vw; scroll-snap-align: center; }
-        }
-
-        .main-footer {
+        /* === ГЛАВНЫЙ КОНТЕЙНЕР КАРТОЧЕК === */
+        .roster-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.01);
-            border-top: 1px solid var(--border-color);
-            padding: 60px 20px;
+            padding: 0 20px 60px;
+            z-index: 10;
+        }
+
+        /* === КАРТОЧКА ПРОФИЛЯ === */
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 30px;
+            padding: 40px;
+            flex: 1;
+            min-width: 380px;
+            max-width: 500px;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition-smooth);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* Анимации появления карточек */
+        .profile-card:nth-child(1) { animation: fadeUp 1s ease-out 0.3s forwards; }
+        .profile-card:nth-child(2) { animation: fadeUp 1s ease-out 0.5s forwards; }
+
+        .profile-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        /* Лента продаж */
+        .sales-ribbon {
+            position: absolute;
+            top: 25px;
+            right: -40px;
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 8px 50px;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        /* === ИМИТАЦИЯ ТЕЛЕГРАМ ПРОФИЛЯ === */
+        .tg-profile-widget {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tg-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .tg-avatar.dev::after {
+            content: ''; position: absolute; bottom: 2px; right: 2px;
+            width: 14px; height: 14px; background: var(--accent-dev);
+            border-radius: 50%; border: 3px solid var(--bg-deep);
+        }
+        
+        .tg-avatar.dsgn::after {
+            content: ''; position: absolute; bottom: 2px; right: 2px;
+            width: 14px; height: 14px; background: var(--accent-dsgn);
+            border-radius: 50%; border: 3px solid var(--bg-deep);
+        }
+
+        .tg-info h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tg-username {
+            font-family: 'Space Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Бейджи ролей */
+        .role-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-family: 'Space Mono', monospace;
+        }
+        .badge-dev { background: rgba(0, 255, 204, 0.1); color: var(--accent-dev); border: 1px solid rgba(0,255,204,0.2); }
+        .badge-dsgn { background: rgba(176, 38, 255, 0.1); color: var(--accent-dsgn); border: 1px solid rgba(176,38,255,0.2); }
+
+        .bio-text {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            flex-grow: 1;
+        }
+
+        /* === КНОПКИ === */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
             margin-top: auto;
         }
 
-        .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
+        .btn {
+            flex: 1;
+            padding: 16px 0;
+            border-radius: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-price {
+            background: rgba(255,255,255,0.03);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .btn-price:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+
+        .btn-tg-dev { background: #fff; color: #000; border: none; }
+        .btn-tg-dev:hover { background: var(--accent-dev); box-shadow: 0 0 20px rgba(0,255,204,0.4); }
+
+        .btn-tg-dsgn { background: #fff; color: #000; border: none; }
+        .btn-tg-dsgn:hover { background: var(--accent-dsgn); box-shadow: 0 0 20px rgba(176,38,255,0.4); }
+
+        /* === МОДАЛЬНОЕ ОКНО (ПРАЙС-ЛИСТ) === */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex;
             justify-content: space-between;
-            gap: 40px;
-            flex-wrap: wrap;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10;
         }
 
-        @keyframes bodyFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes titleEntrance { from { opacity: 0; letter-spacing: 35px; transform: translateY(-20px); } to { opacity: 1; letter-spacing: clamp(8px, 3vw, 20px); transform: translateY(0); } }
-        @keyframes cardEntrance { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
-            display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
         }
-        .modal-box {
-            background: #111; border: 1px solid var(--border-color);
-            padding: 40px; border-radius: 30px; width: 100%; max-width: 450px;
+        .close-btn:hover { color: #fff; }
+
+        /* Таблица прайса */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
         }
+
+        .price-table th {
+            text-align: left;
+            padding: 15px 30px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .price-row {
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.3s;
+        }
+        .price-row:hover { background: rgba(255,255,255,0.02); }
+        .price-row:last-child { border-bottom: none; }
+
+        .price-cell {
+            padding: 20px 30px;
+            vertical-align: middle;
+        }
+
+        .service-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .service-fiat {
+            color: #888;
+            font-size: 0.8rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .service-crypto {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-end;
+        }
+
+        .crypto-tag {
+            background: rgba(255,255,255,0.05);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 90px;
+            justify-content: center;
+        }
+
+        .tag-ton { color: #0098EA; border: 1px solid rgba(0, 152, 234, 0.2); }
+        .tag-star { color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.2); }
+
+        .modal-footer {
+            padding: 20px 30px;
+            background: rgba(255,255,255,0.01);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        /* === АДАПТИВНОСТЬ (МОБИЛЬНЫЕ) === */
+        @media (max-width: 900px) {
+            .roster-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 15px 40px;
+            }
+            .profile-card {
+                width: 100%;
+                min-width: 100%;
+                padding: 30px 20px;
+            }
+            .price-table th { display: none; }
+            .price-row { display: flex; flex-direction: column; padding: 15px 20px; }
+            .price-cell { padding: 0; }
+            .service-crypto { align-items: flex-start; flex-direction: row; margin-top: 12px; flex-wrap: wrap; }
+            .sales-ribbon { right: -45px; top: 20px; }
+        }
+
+        /* === КЕЙФРЕЙМЫ === */
+        @keyframes pulseGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
+    <div class="ambient-background"></div>
+    <div class="grid-overlay"></div>
 
     <header>
-        <h1>Arrancar Brothers</h1>
+        <h1>Arrancar</h1>
+        <div class="subtitle">Private Syndicate</div>
     </header>
 
-    <main class="main-container">
+    <main class="roster-container">
+        
         <div class="profile-card">
-            <div>
-                <span class="role-badge badge-mewasted">Owner / Developer</span>
-                <h2 class="user-name">@mewasted</h2>
-                <p class="user-bio">Владелец клана. Разработка любой сложности, автоматизация процессов и экспертные решения.</p>
+            <div class="sales-ribbon">SALES OPEN</div>
+            
+            <div class="tg-profile-widget">
+                <div class="tg-avatar dev">MW</div>
+                <div class="tg-info">
+                    <h2>Mewasted <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent-dev)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></h2>
+                    <div class="tg-username">@mewasted</div>
+                </div>
             </div>
-            <div class="btn-group">
-                <button class="btn btn-details" onclick="openModal('mewasted')">Услуги</button>
-                <a href="https://t.me/mewasted" class="btn btn-contact">Написать</a>
+
+            <span class="role-badge badge-dev">Industrial Developer</span>
+            
+            <p class="bio-text">
+                Проектирование и разработка закрытых систем. Создаю Telegram-ботов любой сложности, отказоустойчивые веб-платформы и скрипты автоматизации. Чистый код, строгие дедлайны.
+            </p>
+
+            <div class="action-buttons">
+                <button class="btn btn-price" onclick="openModal('dev')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    Прайс-лист
+                </button>
+                <a href="https://t.me/mewasted" target="_blank" class="btn btn-tg-dev">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.96 1.25-5.54 3.67-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.03-.48-.81-.27-1.46-.41-1.4-.86.03-.23.36-.47.99-.71 3.9-1.7 6.5-2.82 7.79-3.36 3.7-1.55 4.47-1.82 4.97-1.83.11 0 .36.03.52.16.13.11.17.26.19.37.01.07.03.22.01.36z"/></svg>
+                    Заказать
+                </a>
             </div>
         </div>
 
         <div class="profile-card">
-            <div>
-                <span class="role-badge badge-murdered">Co-Owner / Designer</span>
-                <h2 class="user-name">@tg_murdered</h2>
-                <p class="user-bio">Второй владелец клана. Визуальный стиль, интерфейсы и эксклюзивный дизайн.</p>
+            <div class="sales-ribbon">SALES OPEN</div>
+
+            <div class="tg-profile-widget">
+                <div class="tg-avatar dsgn">MR</div>
+                <div class="tg-info">
+                    <h2>Murdered <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent-dsgn)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></h2>
+                    <div class="tg-username">@tg_murdered</div>
+                </div>
             </div>
-            <div class="btn-group">
-                <button class="btn btn-details" onclick="openModal('murdered')">Услуги</button>
-                <a href="https://t.me/tg_murdered" class="btn btn-contact">Написать</a>
+
+            <span class="role-badge badge-dsgn">Creative Visualist</span>
+            
+            <p class="bio-text">
+                Эксклюзивный визуал и упаковка проектов. Создаю графику, которая продает: от статических аватарок до полного брендинга Telegram-сетей. Ваш проект будет выглядеть дорого.
+            </p>
+
+            <div class="action-buttons">
+                <button class="btn btn-price" onclick="openModal('dsgn')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    Прайс-лист
+                </button>
+                <a href="https://t.me/tg_murdered" target="_blank" class="btn btn-tg-dsgn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.96 1.25-5.54 3.67-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.03-.48-.81-.27-1.46-.41-1.4-.86.03-.23.36-.47.99-.71 3.9-1.7 6.5-2.82 7.79-3.36 3.7-1.55 4.47-1.82 4.97-1.83.11 0 .36.03.52.16.13.11.17.26.19.37.01.07.03.22.01.36z"/></svg>
+                    Заказать
+                </a>
             </div>
         </div>
     </main>
 
-    <div class="warning-notice">
-        <p>Твинков не имеем — за фейков не ручаемся</p>
-    </div>
-
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px;">Work Rules</h3>
-                <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6;">• Предоплата 50%<br>• Гарантия качества<br>• Быстрые дедлайны</p>
+    <div class="modal-overlay" id="priceModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">PRICE LIST</h3>
+                <button class="close-btn" onclick="closeModal(event, true)">&times;</button>
             </div>
-            <div class="footer-section">
-                <h3 style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 15px;">Join Us</h3>
-                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Нам нужны: доксеры, осинтеры, сватеры, ддосеры, кодеры, дизайнеры.</p>
-                <div style="color: var(--accent-mewasted); font-size: 0.7rem; font-weight: 800; letter-spacing: 1px;">RECRUITMENT OPEN</div>
-            </div>
-        </div>
-    </footer>
+            
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Услуга</th>
+                        <th style="text-align: right;">Стоимость</th>
+                    </tr>
+                </thead>
+                <tbody id="modalBody">
+                    </tbody>
+            </table>
 
-    <div class="modal-overlay" id="modal" onclick="closeModal()">
-        <div class="modal-box" onclick="event.stopPropagation()">
-            <h2 id="modalTitle" style="font-family: 'Syncopate'; font-size: 1rem; margin-bottom: 20px; color: #fff;"></h2>
-            <ul id="modalList" style="list-style: none; color: #999; line-height: 2; font-size: 0.9rem;"></ul>
-            <button class="btn btn-details" style="margin-top: 30px; width: 100%;" onclick="closeModal()">Закрыть</button>
+            <div class="modal-footer">
+                ПРЕДОПЛАТА 50% • ПРИНИМАЕМ RUB, KZT, TON, STARS
+            </div>
         </div>
     </div>
 
     <script>
-        const info = {
-            'mewasted': { title: 'Coding Services', list: ['• Telegram боты', '• Скрипты автоматизации', '• OSINT исследования', '• Кастомный софт'] },
-            'murdered': { title: 'Design Services', list: ['• Оформление ТГ', '• Логотипы', '• Баннеры', '• UI/UX Дизайн'] }
+        // База данных с вашими ценами
+        const priceData = {
+            dev: {
+                title: 'MEWASTED | DEV PRICE',
+                color: 'var(--accent-dev)',
+                items: [
+                    { name: 'TG Бот (Легкий)', fiat: '200₽ / 1.000₸', ton: '1 TON', stars: '100 ⭐' },
+                    { name: 'TG Бот (Средний)', fiat: '500₽ / 2.500₸', ton: '2 TON', stars: '250 ⭐' },
+                    { name: 'TG Бот (Тяжелый)', fiat: '700₽ / 3.500₸', ton: '3 TON', stars: '350 ⭐' },
+                    { name: 'Сайт-визитка', fiat: '500₽ / 2.500₸', ton: '2 TON', stars: '250 ⭐' },
+                    { name: 'Сайт (Наш хостинг)', fiat: '800₽ / 4.000₸', ton: '3 TON', stars: '400 ⭐' },
+                    { name: 'Сайт (Тяжелый/Complex)', fiat: 'от 1.500₽ / 7.500₸', ton: 'от 5 TON', stars: 'от 750 ⭐' },
+                    { name: 'Доступ в Приват ТГК', fiat: '400₽ / 2.000₸', ton: '2 TON', stars: '200 ⭐' }
+                ]
+            },
+            dsgn: {
+                title: 'MURDERED | DESIGN PRICE',
+                color: 'var(--accent-dsgn)',
+                items: [
+                    { name: 'Аватарка (Одиночная)', fiat: '200₽ / 1.000₸', ton: '1 TON', stars: '100 ⭐' },
+                    { name: 'Аватарки (Парные)', fiat: '400₽ / 2.000₸', ton: '2 TON', stars: '200 ⭐' },
+                    { name: 'Аватарки (Командные)', fiat: 'от 800₽ / 4.000₸', ton: 'от 3 TON', stars: 'от 400 ⭐' },
+                    { name: 'Оформление акка ТГ', fiat: '200₽ / 1.000₸', ton: '1 TON', stars: '100 ⭐' },
+                    { name: 'Превью для видео/поста', fiat: '500₽ / 2.500₸', ton: '2 TON', stars: '250 ⭐' },
+                    { name: 'Доступ в Приват ТГК', fiat: '400₽ / 2.000₸', ton: '2 TON', stars: '200 ⭐' }
+                ]
+            }
         };
-        const modal = document.getElementById('modal');
-        function openModal(user) {
-            document.getElementById('modalTitle').innerText = info[user].title;
-            document.getElementById('modalList').innerHTML = info[user].list.map(i => `<li>${i}</li>`).join('');
-            modal.style.display = 'flex';
+
+        const modal = document.getElementById('priceModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        // Функция открытия модалки
+        function openModal(type) {
+            const data = priceData[type];
+            
+            // Настраиваем заголовок
+            modalTitle.innerText = data.title;
+            modalTitle.style.color = data.color;
+
+            // Генерируем таблицу
+            modalBody.innerHTML = '';
+            data.items.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'price-row';
+                
+                row.innerHTML = `
+                    <td class="price-cell">
+                        <div class="service-name">${item.name}</div>
+                        <div class="service-fiat">${item.fiat}</div>
+                    </td>
+                    <td class="price-cell">
+                        <div class="service-crypto">
+                            <span class="crypto-tag tag-ton">${item.ton}</span>
+                            <span class="crypto-tag tag-star">${item.stars}</span>
+                        </div>
+                    </td>
+                `;
+                modalBody.appendChild(row);
+            });
+
+            // Показываем окно
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Запрет прокрутки фона
         }
-        function closeModal() { modal.style.display = 'none'; }
+
+        // Функция закрытия модалки
+        function closeModal(event, force = false) {
+            // Закрываем, если кликнули на крестик ИЛИ на темный фон вне карточки
+            if (force || event.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Возвращаем прокрутку
+            }
+        }
     </script>
 </body>
 </html>
