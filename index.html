@@ -20,9 +20,8 @@
     >
 
     <style>
-        /* [1. SYSTEM_ROOT_VARIABLES] 
-           ------------------------------------------------------------
-        */
+        /* [1. SYSTEM_ROOT_VARIABLES]
+        ------------------------------------------------------------ */
         :root {
             --bg-black: #020202;
             --bg-card: #080808;
@@ -51,9 +50,8 @@
             --transition-main: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* [2. GLOBAL_STABILIZATION] 
-           ------------------------------------------------------------
-        */
+        /* [2. GLOBAL_STABILIZATION]
+        ------------------------------------------------------------ */
         * {
             margin-top: 0px;
             margin-right: 0px;
@@ -66,14 +64,12 @@
             padding-left: 0px;
             
             box-sizing: border-box;
-            
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             -webkit-tap-highlight-color: transparent;
         }
 
-        html, 
-        body {
+        html, body {
             width: 100%;
             height: 100%;
             background-color: var(--bg-black);
@@ -83,9 +79,8 @@
             scroll-behavior: smooth;
         }
 
-        /* [3. DECORATIVE_LAYERS] 
-           ------------------------------------------------------------
-        */
+        /* [3. DECORATIVE_LAYERS]
+        ------------------------------------------------------------ */
         .overlay-fx {
             position: fixed;
             top: 0;
@@ -96,32 +91,6 @@
             pointer-events: none;
             background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
             opacity: 0.03;
-        }
-
-        .scanline-fx {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(
-                to bottom, 
-                transparent, 
-                rgba(0, 255, 204, 0.05), 
-                transparent
-            );
-            z-index: 10001;
-            pointer-events: none;
-            animation: scanline 8s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(100%);
-            }
         }
 
         .bg-blobs {
@@ -154,9 +123,8 @@
             filter: blur(100px);
         }
 
-        /* [4. HEADER_CONSTRUCTION] 
-           ------------------------------------------------------------
-        */
+        /* [4. HEADER_CONSTRUCTION]
+        ------------------------------------------------------------ */
         .master-header {
             display: flex;
             flex-direction: column;
@@ -177,7 +145,7 @@
             background: linear-gradient(180deg, #fff 0%, #333 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 0px 20px rgba(255,255,255,0.1));
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
         }
 
         .syndicate-motto {
@@ -208,40 +176,28 @@
         }
 
         @keyframes pulse-danger {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(0.98);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        /* [5. CONTENT_GEOMETRY] 
-           ------------------------------------------------------------
-        */
+        /* [5. CONTENT_GEOMETRY]
+        ------------------------------------------------------------ */
         .root-container {
             max-width: 1200px;
             width: 100%;
-            margin-top: 0px;
+            margin-top: 0;
             margin-right: auto;
-            margin-bottom: 0px;
+            margin-bottom: 0;
             margin-left: auto;
-            
-            padding-top: 0px;
+            padding-top: 0;
             padding-right: 25px;
             padding-bottom: 120px;
             padding-left: 25px;
         }
 
-        /* [6. CARDS_ENGINE] 
-           ------------------------------------------------------------
-        */
+        /* [6. CARDS_ENGINE]
+        ------------------------------------------------------------ */
         .cards-layout {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -251,7 +207,6 @@
 
         .syndicate-card {
             background-color: var(--bg-card);
-            
             border-top-width: 1px;
             border-right-width: 1px;
             border-bottom-width: 1px;
@@ -260,7 +215,6 @@
             border-color: var(--border-low);
             
             border-radius: 45px;
-            
             padding-top: 60px;
             padding-right: 50px;
             padding-bottom: 60px;
@@ -297,24 +251,13 @@
             font-family: var(--font-tech);
             font-weight: 700;
             font-size: 1.6rem;
-            
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
+            border-width: 1px;
             border-style: solid;
             border-color: var(--border-low);
         }
 
-        .av-mewasted {
-            color: var(--mewasted-accent);
-            box-shadow: 0px 0px 30px var(--glow-mewasted);
-        }
-
-        .av-murdered {
-            color: var(--murdered-accent);
-            box-shadow: 0px 0px 30px var(--glow-murdered);
-        }
+        .av-mewasted { color: var(--mewasted-accent); box-shadow: 0 0 30px var(--glow-mewasted); }
+        .av-murdered { color: var(--murdered-accent); box-shadow: 0 0 30px var(--glow-murdered); }
 
         .unit-title h2 {
             font-size: 2rem;
@@ -337,12 +280,10 @@
             min-height: 90px;
         }
 
-        /* [7. DOSSIER_SYSTEM (BIO)] 
-           ------------------------------------------------------------
-        */
+        /* [7. DOSSIER_SYSTEM (BIO)]
+        ------------------------------------------------------------ */
         .dossier-wrapper {
             background-color: rgba(255, 255, 255, 0.02);
-            
             border-left-width: 4px;
             border-left-style: solid;
             border-left-color: var(--grey-dark);
@@ -376,9 +317,8 @@
             font-weight: 800;
         }
 
-        /* [8. BUTTON_INTERFACE] 
-           ------------------------------------------------------------
-        */
+        /* [8. BUTTON_INTERFACE]
+        ------------------------------------------------------------ */
         .btn-container {
             display: flex;
             gap: 20px;
@@ -388,10 +328,7 @@
         .base-btn {
             flex: 1;
             padding-top: 22px;
-            padding-right: 0px;
             padding-bottom: 22px;
-            padding-left: 0px;
-            
             border-radius: 18px;
             font-size: 0.85rem;
             font-weight: 900;
@@ -400,15 +337,12 @@
             text-align: center;
             text-decoration: none;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-outline {
             background-color: transparent;
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
+            border-width: 1px;
             border-style: solid;
             border-color: var(--border-low);
             color: var(--white-pure);
@@ -421,21 +355,17 @@
 
         .btn-primary {
             background-color: var(--white-pure);
-            color: #000000;
-            border-top-style: none;
-            border-right-style: none;
-            border-bottom-style: none;
-            border-left-style: none;
+            color: #000;
+            border: none;
         }
 
         .btn-primary:hover {
             transform: scale(1.04);
-            box-shadow: 0px 0px 35px rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.25);
         }
 
-        /* [9. RECRUITMENT_TERMINAL] 
-           ------------------------------------------------------------
-        */
+        /* [9. RECRUITMENT_TERMINAL]
+        ------------------------------------------------------------ */
         .terminal-block {
             background-color: #050505;
             border-top-width: 1px;
@@ -446,7 +376,6 @@
             border-color: var(--grey-dark);
             
             border-radius: 45px;
-            
             padding-top: 80px;
             padding-right: 40px;
             padding-bottom: 80px;
@@ -471,7 +400,7 @@
             justify-content: center;
             gap: 15px;
             max-width: 900px;
-            margin-top: 0px;
+            margin-top: 0;
             margin-right: auto;
             margin-bottom: 50px;
             margin-left: auto;
@@ -479,10 +408,7 @@
 
         .tag-item {
             background-color: #0b0b0b;
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
+            border-width: 1px;
             border-style: solid;
             border-color: #1a1a1a;
             
@@ -494,26 +420,28 @@
             border-radius: 12px;
             font-family: var(--font-code);
             font-size: 0.8rem;
-            color: #555555;
+            color: #555;
             transition: 0.3s;
         }
 
-        /* [10. LAWS_PROTOCOL_TRIGGER] 
-           ------------------------------------------------------------
-        */
+        .tag-item:hover {
+            border-color: #333;
+            color: var(--white-pure);
+            transform: translateY(-5px);
+        }
+
+        /* [10. LAWS_PROTOCOL_TRIGGER]
+        ------------------------------------------------------------ */
         .laws-trigger {
             display: block;
             width: fit-content;
-            margin-top: 0px;
+            margin-top: 0;
             margin-right: auto;
             margin-bottom: 120px;
             margin-left: auto;
             
             background-color: transparent;
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
+            border-width: 1px;
             border-style: solid;
             border-color: var(--danger-accent);
             color: var(--danger-accent);
@@ -529,18 +457,17 @@
             font-weight: 800;
             letter-spacing: 8px;
             cursor: pointer;
-            transition: 0.6s;
+            transition: 0.6s var(--transition-main);
         }
 
         .laws-trigger:hover {
             background-color: var(--danger-accent);
-            color: #ffffff;
-            box-shadow: 0px 0px 60px rgba(255, 51, 51, 0.4);
+            color: var(--white-pure);
+            box-shadow: 0 0 60px rgba(255, 51, 51, 0.4);
         }
 
-        /* [11. MODAL_ARCHITECTURE] 
-           ------------------------------------------------------------
-        */
+        /* [11. MODAL_ARCHITECTURE]
+        ------------------------------------------------------------ */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -549,19 +476,20 @@
             height: 100%;
             background-color: var(--bg-modal);
             backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             z-index: 99999;
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 25px;
+            padding-top: 25px;
+            padding-right: 25px;
+            padding-bottom: 25px;
+            padding-left: 25px;
         }
 
         .modal-body {
             background-color: #050505;
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
+            border-width: 1px;
             border-style: solid;
             border-color: var(--border-low);
             
@@ -574,20 +502,27 @@
             padding-right: 60px;
             padding-bottom: 70px;
             padding-left: 60px;
+            
+            position: relative;
         }
+
+        .modal-body::-webkit-scrollbar { width: 4px; }
+        .modal-body::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
 
         .law-node {
             margin-bottom: 50px;
             padding-bottom: 30px;
             border-bottom-width: 1px;
             border-bottom-style: solid;
-            border-bottom-color: #111111;
+            border-bottom-color: #111;
         }
+
+        .law-node:last-child { border-bottom: none; }
 
         .law-node h4 {
             font-family: var(--font-code);
             font-size: 1.1rem;
-            color: #ffffff;
+            color: var(--white-pure);
             margin-bottom: 18px;
             text-transform: uppercase;
             display: flex;
@@ -603,9 +538,47 @@
             border-radius: 50%;
         }
 
-        /* [12. FOOTER_PROTOCOL] 
-           ------------------------------------------------------------
-        */
+        .law-node p {
+            font-size: 0.95rem;
+            color: var(--grey-muted);
+            line-height: 1.9;
+        }
+
+        /* [12. PRICING_CONSTRUCTION]
+        ------------------------------------------------------------ */
+        .price-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: #111;
+        }
+
+        .price-info {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .price-fiat {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--grey-muted);
+            margin-top: 6px;
+        }
+
+        .price-crypto {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: var(--white-pure);
+            font-weight: 900;
+            text-align: right;
+        }
+
+        /* [13. FOOTER_PROTOCOL]
+        ------------------------------------------------------------ */
         .master-footer {
             width: 100%;
             padding-top: 70px;
@@ -619,115 +592,59 @@
         .safety-log {
             font-family: var(--font-code);
             font-size: 0.8rem;
-            color: #333333;
+            color: #333;
             max-width: 850px;
-            margin-top: 0px;
+            margin-top: 0;
             margin-right: auto;
-            margin-bottom: 0px;
+            margin-bottom: 0;
             margin-left: auto;
             line-height: 1.8;
         }
 
-        /* ============================================================
-           [13. MOBILE_OPTIMIZATION_CORE] - HORIZONTAL MODE
-           ============================================================
-        */
+        .safety-log b { color: #555; font-weight: 700; }
+
+        /* [14. MOBILE_CORE_OPTIMIZATION]
+        ------------------------------------------------------------ */
         @media (max-width: 950px) {
-            .brand-logo {
-                font-size: 4rem;
-                letter-spacing: 15px;
-            }
-
-            .cards-layout {
-                display: flex !important;
-                flex-direction: row !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory !important;
-                gap: 20px !important;
-                padding-bottom: 50px !important;
-                /* Сдвиг для компенсации отступов контейнера */
-                margin-left: -20px !important;
-                margin-right: -20px !important;
-                padding-left: 20px !important;
-                padding-right: 20px !important;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .syndicate-card {
-                /* Уменьшено до 78vw, чтобы вторая карточка сильнее выглядывала */
-                min-width: 78vw !important;
-                max-width: 78vw !important;
-                scroll-snap-align: center !important;
-                margin-bottom: 0px !important;
-                padding-top: 45px !important;
-                padding-right: 30px !important;
-                padding-bottom: 45px !important;
-                padding-left: 30px !important;
-            }
-
-            /* Hiding scrollbar for cleaner look */
-            .cards-layout::-webkit-scrollbar {
-                display: none;
-            }
+            .brand-logo { font-size: 4rem; letter-spacing: 15px; }
+            .cards-layout { grid-template-columns: 1fr; }
+            .syndicate-card { padding-top: 45px; padding-right: 35px; padding-bottom: 45px; padding-left: 35px; }
         }
 
         @media (max-width: 600px) {
-            .master-header {
-                padding-top: 80px;
-            }
-            .brand-logo {
-                font-size: 2.8rem;
-                letter-spacing: 10px;
-            }
-            .syndicate-motto {
-                font-size: 0.65rem;
-                padding-top: 12px;
-                padding-right: 20px;
-                padding-bottom: 12px;
-                padding-left: 20px;
-            }
-            .btn-container {
-                flex-direction: column;
-            }
-            .modal-body {
-                padding-top: 50px;
-                padding-right: 25px;
-                padding-bottom: 50px;
-                padding-left: 25px;
-                border-radius: 30px;
-            }
-            .laws-trigger {
-                width: 100%;
-                padding-top: 25px;
-                padding-right: 0px;
-                padding-bottom: 25px;
-                padding-left: 0px;
-                letter-spacing: 5px;
-            }
+            .master-header { padding-top: 80px; }
+            .brand-logo { font-size: 2.8rem; letter-spacing: 10px; margin-bottom: 30px; }
+            .syndicate-motto { font-size: 0.65rem; padding-right: 20px; padding-left: 20px; letter-spacing: 2px; }
+            
+            .btn-container { flex-direction: column; }
+            .modal-body { padding-top: 50px; padding-right: 25px; padding-bottom: 50px; padding-left: 25px; }
+            
+            .laws-trigger { width: 100%; padding-right: 0; padding-left: 0; }
+            
+            .dossier-wrapper { padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; }
+            
+            .unit-avatar { width: 70px; height: 70px; font-size: 1.3rem; }
+            .unit-title h2 { font-size: 1.6rem; }
         }
 
-        /* [ADDITIONAL_SYSTEM_SPACE_RESERVE] 
-           ------------------------------------------------------------
-           These blocks ensure the code maintain high structural weight.
-        */
-        
-        /* DATA_NODE_RESERVE_1 */
-        /* DATA_NODE_RESERVE_2 */
-        /* DATA_NODE_RESERVE_3 */
-        /* DATA_NODE_RESERVE_4 */
-        /* DATA_NODE_RESERVE_5 */
-        /* DATA_NODE_RESERVE_6 */
-        /* DATA_NODE_RESERVE_7 */
-        /* DATA_NODE_RESERVE_8 */
-        /* DATA_NODE_RESERVE_9 */
-        /* DATA_NODE_RESERVE_10 */
-        /* DATA_NODE_RESERVE_11 */
-        /* DATA_NODE_RESERVE_12 */
-        /* DATA_NODE_RESERVE_13 */
-        /* DATA_NODE_RESERVE_14 */
-        /* DATA_NODE_RESERVE_15 */
+        /* [15. ANIMATION_RESOURCES]
+        ------------------------------------------------------------ */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
 
+        .scanline-fx {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 204, 0.05), transparent);
+            z-index: 10001;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -756,22 +673,23 @@
                         <span>@mewasted</span>
                     </div>
                 </div>
-                
+
                 <p class="unit-desc">
                     Разработка сложных технических решений: боты, автоматизированные системы и закрытые инструменты для теневого сектора.
                 </p>
-                
+
                 <div class="dossier-wrapper">
                     <span class="dossier-label">Dossier #001 // SYSTEM OWNER</span>
                     <div class="dossier-content">
                         <b>@mewasted</b> — ведущий кодер и идеолог <b>Arrancar</b>. 
-                        Эксперт в области <b>OSINT</b>. Лично курирует тех-часть.
+                        Эксперт в области <b>OSINT</b> и приватной разработки. 
+                        Лично курирует реализацию каждого технического продукта в синдикате.
                     </div>
                 </div>
-                
+
                 <div class="btn-container">
                     <button class="base-btn btn-outline" onclick="openTerminal('price_dev')">Прайс-лист</button>
-                    <a href="https://t.me/mewasted" class="base-btn btn-primary">Связаться</a>
+                    <a href="https://t.me/mewasted" class="base-btn btn-primary">Инициировать ЛС</a>
                 </div>
             </article>
 
@@ -783,22 +701,23 @@
                         <span>@tg_murdered</span>
                     </div>
                 </div>
-                
+
                 <p class="unit-desc">
-                    Визуальная идентичность и графическое превосходство: от аватар до полной упаковки брендов.
+                    Визуальная идентичность и графическое превосходство: от аватар до полной упаковки брендов любой сложности.
                 </p>
-                
+
                 <div class="dossier-wrapper">
                     <span class="dossier-label">Dossier #002 // VISUAL OWNER</span>
                     <div class="dossier-content">
                         <b>@tg_murdered</b> — главный дизайнер и со-основатель <b>Arrancar</b>. 
-                        Ведет весь визуальный блок синдиката.
+                        Отвечает за весь визуал синдиката и ведение приватных 
+                        дизайн-проектов для постоянных клиентов.
                     </div>
                 </div>
-                
+
                 <div class="btn-container">
                     <button class="base-btn btn-outline" onclick="openTerminal('price_dsgn')">Прайс-лист</button>
-                    <a href="https://t.me/tg_murdered" class="base-btn btn-primary">Связаться</a>
+                    <a href="https://t.me/tg_murdered" class="base-btn btn-primary">Инициировать ЛС</a>
                 </div>
             </article>
 
@@ -806,6 +725,7 @@
 
         <section class="terminal-block">
             <h3 class="terminal-title">RECRUITMENT PROTOCOL</h3>
+            <p style="color: #444; margin-bottom: 45px; font-size: 0.95rem;">Синдикат ведет набор специалистов. По вопросам вступления обращаться в ЛС.</p>
             
             <div class="tags-group">
                 <div class="tag-item">ДОКСЕРЫ</div>
@@ -816,8 +736,8 @@
                 <div class="tag-item">ДИЗАЙНЕРЫ</div>
                 <div class="tag-item">СНОСЕРЫ</div>
             </div>
-            
-            <a href="https://t.me/mewasted" style="color: #ffffff; font-family: var(--font-code); text-decoration: none; font-size: 0.8rem; border-bottom: 1px solid #222222; padding-bottom: 5px;">
+
+            <a href="https://t.me/mewasted" style="color: #fff; font-family: var(--font-code); text-decoration: none; font-size: 0.8rem; border-bottom: 1px solid #222; padding-bottom: 8px;">
                 REQUEST ACCESS [PRIVATE]
             </a>
         </section>
@@ -828,110 +748,120 @@
 
     <footer class="master-footer">
         <div class="safety-log">
-            <b>SECURITY STATUS:</b> ВСЕ СДЕЛКИ В ТЕНИ. ОПЛАТА ЧЕРЕЗ <b>FAN PAY</b> ПРИВЕТСТВУЕТСЯ. 
+            <b>SECURITY STATUS:</b> ВСЕ СДЕЛКИ ПРОВОДЯТСЯ В УСЛОВИЯХ ПОЛНОЙ ТЕНИ. 
+            ПРИ НЕОБХОДИМОСТИ МЫ ПРИНИМАЕМ ОПЛАТУ ЧЕРЕЗ <b>FAN PAY</b>. 
             ФЕЙКИ ИГНОРИРУЮТСЯ. ТОЛЬКО ПРЯМЫЕ КОНТАКТЫ.
         </div>
     </footer>
 
     <div class="modal-overlay" id="rules_modal" onclick="closeTerminal('rules_modal')">
         <div class="modal-body" onclick="event.stopPropagation()">
-            <h2 style="font-family: var(--font-tech); margin-bottom: 50px; letter-spacing: 5px;">SYNDICATE LAWS</h2>
+            <h2 style="font-family: var(--font-tech); margin-bottom: 50px; font-size: 1.3rem; letter-spacing: 5px;">SYNDICATE LAWS</h2>
             
             <div class="law-node">
                 <h4>01. Финансы</h4>
-                <p>Предоплата 50/100%. При отмене со стороны клиента средства не возвращаются.</p>
+                <p>Мы работаем строго по 50% или 100% предоплате. Если клиент инициирует отмену после начала работ — предоплата удерживается за ресурсное время.</p>
             </div>
-            
+
             <div class="law-node">
-                <h4>02. Поддержка</h4>
-                <p>7 дней гарантии на фикс багов. Дальнейшее обслуживание — по прайсу.</p>
+                <h4>02. Протокол ТЗ</h4>
+                <p>Клиент обязан предоставить полное описание задачи. Любые отклонения от начального плана оплачиваются отдельно.</p>
             </div>
-            
-            <button class="base-btn btn-outline" style="width: 100%; margin-top: 20px;" onclick="closeTerminal('rules_modal')">ЗАКРЫТЬ</button>
+
+            <div class="law-node">
+                <h4>03. Поддержка</h4>
+                <p>Гарантия на софт — 7 суток. Обновление под сторонние API после сдачи проекта — отдельная услуга.</p>
+            </div>
+
+            <div class="law-node">
+                <h4>04. Этика</h4>
+                <p>Неадекватность, флуд или хамство в сторону владельцев — Black List без возможности восстановления и манибэка.</p>
+            </div>
+
+            <button class="base-btn btn-outline" style="width: 100%; margin-top: 30px;" onclick="closeTerminal('rules_modal')">ЗАКРЫТЬ</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="price_dev" onclick="closeTerminal('price_dev')">
         <div class="modal-body" onclick="event.stopPropagation()">
-            <h2 style="font-family: var(--font-tech); margin-bottom: 30px;">DEV_PRICES</h2>
-            <div id="dev_target"></div>
-            <button class="base-btn btn-outline" style="width: 100%; margin-top: 30px;" onclick="closeTerminal('price_dev')">НАЗАД</button>
+            <h2 style="font-family: var(--font-tech); margin-bottom: 45px;">DEVELOPMENT_PRICES</h2>
+            <div id="dev_render_target"></div>
+            <button class="base-btn btn-outline" style="width: 100%; margin-top: 40px;" onclick="closeTerminal('price_dev')">ВЕРНУТЬСЯ</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="price_dsgn" onclick="closeTerminal('price_dsgn')">
         <div class="modal-body" onclick="event.stopPropagation()">
-            <h2 style="font-family: var(--font-tech); margin-bottom: 30px;">DESIGN_PRICES</h2>
-            <div id="dsgn_target"></div>
-            <button class="base-btn btn-outline" style="width: 100%; margin-top: 30px;" onclick="closeTerminal('price_dsgn')">НАЗАД</button>
+            <h2 style="font-family: var(--font-tech); margin-bottom: 45px;">DESIGN_PRICES</h2>
+            <div id="dsgn_render_target"></div>
+            <button class="base-btn btn-outline" style="width: 100%; margin-top: 40px;" onclick="closeTerminal('price_dsgn')">ВЕРНУТЬСЯ</button>
         </div>
     </div>
 
     <script>
-        /* [DATA_REGISTRY]
-           ------------------------------------------------------------
-        */
-        const pricingData = {
+        /* [DATA_CENTER] */
+        const syndicateData = {
             dev: [
-                ['TG Бот (Basic)', '200₽', '1.0 TON'],
-                ['TG Бот (Advanced)', '500₽', '2.0 TON'],
-                ['Complex System', 'от 1.500₽', 'от 5.0 TON']
+                ['TG Бот (Basic)', '200₽ / 1.000₸', '1.0 TON | 150 ⭐'],
+                ['TG Бот (Advanced)', '500₽ / 2.500₸', '2.0 TON | 300 ⭐'],
+                ['TG Бот (Enterprise)', '700₽ / 3.500₸', '3.5 TON | 500 ⭐'],
+                ['Landing Page', '500₽ / 2.500₸', '2.0 TON | 300 ⭐'],
+                ['Web System (Host)', '800₽ / 4.000₸', '4.0 TON | 600 ⭐'],
+                ['Complex Solution', 'от 1.500₽', 'от 6.5 TON'],
+                ['Access Private Channel', '400₽ / 2.000₸', '2.0 TON']
             ],
             dsgn: [
-                ['Avatar', '200₽', '1.0 TON'],
-                ['Team Pack', 'от 800₽', '4.0 TON'],
-                ['Full Branding', 'от 2.000₽', '8.0 TON']
+                ['Logo / Avatar', '200₽ / 1.000₸', '1.0 TON | 150 ⭐'],
+                ['Duo Design Pack', '400₽ / 2.000₸', '2.0 TON | 300 ⭐'],
+                ['Team Identity', 'от 800₽', '4.0 TON | 600 ⭐'],
+                ['TG Channel Branding', '200₽ / 1.000₸', '1.0 TON | 150 ⭐'],
+                ['High-End Preview', '500₽ / 2.500₸', '2.0 TON | 300 ⭐'],
+                ['Full Brand Case', 'от 2.000₽', 'от 8.0 TON'],
+                ['Access Private Channel', '400₽ / 2.000₸', '2.0 TON']
             ]
         };
 
-        /* [MODAL_ENGINE]
-           ------------------------------------------------------------
-        */
+        /* [MODAL_ENGINE] */
         function openTerminal(id) {
-            const modalNode = document.getElementById(id);
-            modalNode.style.display = 'flex';
+            const node = document.getElementById(id);
+            node.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            if(id.includes('price')) {
-                const targetType = id.split('_')[1];
-                renderPriceList(targetType);
-            }
+            if (id === 'price_dev') renderContent('dev');
+            if (id === 'price_dsgn') renderContent('dsgn');
         }
 
         function closeTerminal(id) {
-            const modalNode = document.getElementById(id);
-            modalNode.style.display = 'none';
+            const node = document.getElementById(id);
+            node.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        /* [RENDER_PROTOCOL]
-           ------------------------------------------------------------
-        */
-        function renderPriceList(type) {
-            const targetContainer = document.getElementById(`${type}_target`);
-            let finalHtml = '';
+        /* [CONTENT_RENDERER] */
+        function renderContent(type) {
+            const target = document.getElementById(`${type}_render_target`);
+            const pool = syndicateData[type];
+            let buffer = '';
             
-            pricingData[type].forEach(row => {
-                finalHtml += `
-                    <div class="price-entry" style="display: flex; justify-content: space-between; align-items: center; padding: 25px 0; border-bottom: 1px solid #111;">
-                        <div class="price-info" style="font-weight: 700; font-size: 1.1rem;">
+            pool.forEach(row => {
+                buffer += `
+                    <div class="price-entry">
+                        <div class="price-info">
                             ${row[0]}
-                            <span class="price-fiat" style="display: block; font-size: 0.85rem; color: #666; margin-top: 6px;">${row[1]}</span>
+                            <span class="price-fiat">${row[1]}</span>
                         </div>
-                        <div class="price-crypto" style="font-family: 'Space Mono', monospace; font-size: 0.85rem; color: #fff; font-weight: 900;">${row[2]}</div>
+                        <div class="price-crypto">${row[2]}</div>
                     </div>
                 `;
             });
             
-            targetContainer.innerHTML = finalHtml;
+            target.innerHTML = buffer;
         }
 
-        /* [BOOT_LOG]
-           ------------------------------------------------------------
-        */
-        window.addEventListener('load', () => {
-            console.log("%c [SYS] ARRANCAR INTERFACE V4.0.8 ONLINE ", "background: #000; color: #00ffcc; font-weight: bold; padding: 10px;");
-        });
+        /* [BOOT_SEQUENCE] */
+        window.onload = () => {
+            console.log("%c [SYS] ARRANCAR V4.0 LOADED ", "background: #000; color: #00ffcc; font-weight: bold;");
+        };
     </script>
 </body>
 </html>
