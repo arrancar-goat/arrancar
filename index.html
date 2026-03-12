@@ -646,14 +646,18 @@
                 scroll-snap-type: x mandatory !important;
                 gap: 20px !important;
                 padding-bottom: 50px !important;
-                margin-left: -10px !important;
-                margin-right: -10px !important;
+                /* Сдвиг для компенсации отступов контейнера */
+                margin-left: -20px !important;
+                margin-right: -20px !important;
+                padding-left: 20px !important;
+                padding-right: 20px !important;
                 -webkit-overflow-scrolling: touch;
             }
 
             .syndicate-card {
-                min-width: 88vw !important;
-                max-width: 88vw !important;
+                /* Уменьшено до 78vw, чтобы вторая карточка сильнее выглядывала */
+                min-width: 78vw !important;
+                max-width: 78vw !important;
                 scroll-snap-align: center !important;
                 margin-bottom: 0px !important;
                 padding-top: 45px !important;
